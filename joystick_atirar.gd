@@ -90,7 +90,7 @@ func trocar_posicao(position_: Vector2, so_long: bool):
 
 func atirar():
   if $balas_bar.value > 0 and $timer2.is_stopped():
-    add_sibling(bala.instantiate(), true)
+    $"../".ajustar_tiro()
     $balas_bar.value -= 1
     $timer1.start()
     $timer2.start()

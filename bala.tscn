@@ -25,6 +25,7 @@ scale = Vector2(20, 20)
 texture = ExtResource("1_kiv0q")
 
 [node name="timer" type="Timer" parent="."]
+wait_time = 0.6
 one_shot = true
 
 [node name="Area2D2" type="Area2D" parent="."]
@@ -41,4 +42,3 @@ shape = SubResource("RectangleShape2D_nffxe")
 
 [connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b0pav740be3q"]
+[gd_scene load_steps=12 format=3 uid="uid://b0pav740be3q"]
 
 [ext_resource type="Texture2D" uid="uid://cruqs6vfjprtp" path="res://bola.png" id="1_olbo4"]
 [ext_resource type="Texture2D" uid="uid://d0gke3r57dxpn" path="res://arma.png" id="2_sfomk"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://character.gd" id="5_ip2cj"]
 [ext_resource type="PackedScene" uid="uid://0qv3nko0t55y" path="res://joystick_atirar.tscn" id="5_xxma2"]
 [ext_resource type="Texture2D" uid="uid://d3pr341msyngp" path="res://mira.png" id="6_asc0c"]
+[ext_resource type="PackedScene" uid="uid://capvk35y13reg" path="res://bala.tscn" id="7_vji8y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hidji"]
 radius = 89.5879
@@ -29,6 +30,33 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:position")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath("bala0:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("bala0:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("bala0:visible")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("bala1:position")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("bala1:rotation")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath("bala1:visible")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+properties/10/path = NodePath("bala2:position")
+properties/10/spawn = true
+properties/10/replication_mode = 1
+properties/11/path = NodePath("bala2:rotation")
+properties/11/spawn = true
+properties/11/replication_mode = 1
+properties/12/path = NodePath("bala2:visible")
+properties/12/spawn = true
+properties/12/replication_mode = 1
 
 [node name="character" type="CharacterBody2D"]
 script = ExtResource("5_ip2cj")
@@ -70,9 +98,9 @@ offset_top = 278.0
 offset_right = 715.0
 offset_bottom = 308.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_2xosh")
-max_value = 15.0
+max_value = 12.0
 step = 1.0
-value = 15.0
+value = 12.0
 show_percentage = false
 
 [node name="timer0" type="Timer" parent="."]
@@ -92,6 +120,15 @@ shape = SubResource("CircleShape2D_4c1px")
 
 [node name="multiplayer_synchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_5c54w")
+
+[node name="bala0" parent="." instance=ExtResource("7_vji8y")]
+visible = false
+
+[node name="bala1" parent="." instance=ExtResource("7_vji8y")]
+visible = false
+
+[node name="bala2" parent="." instance=ExtResource("7_vji8y")]
+visible = false
 
 [connection signal="timeout" from="timer0" to="." method="_on_timer_0_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

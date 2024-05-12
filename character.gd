@@ -3,6 +3,18 @@ extends CharacterBody2D
 
 var speed = 21000
 var andando = false
+var balas_usadas = [false, false, false]
+
+
+func ajustar_tiro():
+  var num_bala = balas_usadas.find(false)
+  get_node("bala" + str(num_bala)).usar()
+  balas_usadas[num_bala] = true
+  
+
+
+func desativar_bala(num: String):
+  balas_usadas[int(num)] = false
 
 
 func _enter_tree():
@@ -60,16 +72,15 @@ func _on_area_2d_body_entered(body):
   # As balas tem nomes como "bala", "bala1", "bala2", "bala17" e outros
   # Com modos em equipe, é preciso no futuro
   # diferenciar as balas aliadas e adversárias
-  if is_multiplayer_authority():
-    if "bala" in body.name:
-      $saude.value -= 1
-      body.queue_free()
+  if "bala" in body.name:
+    $saude.value -= 1
+    body.parar()
+    $timer1.start()
 
 
 func _on_timer_0_timeout():
   # O $timer0 é o tempo entre as adições de saúde
   # O $timer1 é o tempo após um tiro que tardaria as adições de saúde
-  if is_multiplayer_authority():
-    if $timer1.is_stopped() and $saude.value < $saude.max_value:
-      $saude.value += 1
-    $timer0.start()
+  if $timer1.is_stopped() and $saude.value < $saude.max_value:
+    $saude.value += 1
+  $timer0.start()
