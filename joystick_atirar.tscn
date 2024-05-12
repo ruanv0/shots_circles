@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://0qv3nko0t55y"]
+
+[ext_resource type="Texture2D" uid="uid://bidp1ibjym7gh" path="res://joystick_base.png" id="1_ra5gy"]
+[ext_resource type="Script" path="res://joystick_atirar.gd" id="2_r016k"]
+[ext_resource type="Texture2D" uid="uid://jfd3kvafvbd8" path="res://joystick_atirar.png" id="3_bwxen"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7p2b"]
+bg_color = Color(0.76572, 0.765719, 0, 1)
+
+[node name="joystick_atirar" type="Sprite2D"]
+position = Vector2(150, 150)
+texture = ExtResource("1_ra5gy")
+script = ExtResource("2_r016k")
+
+[node name="small_circle" type="Sprite2D" parent="."]
+texture = ExtResource("3_bwxen")
+
+[node name="balas_bar" type="ProgressBar" parent="."]
+offset_left = -1497.14
+offset_top = -725.714
+offset_right = -1227.14
+offset_bottom = -645.714
+theme_override_styles/fill = SubResource("StyleBoxFlat_l7p2b")
+max_value = 15.0
+step = 1.0
+value = 7.0
+show_percentage = false
+
+[node name="timer0" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="timer1" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="timer2" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="timer0" to="." method="_on_timer_0_timeout"]

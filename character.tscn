@@ -1,0 +1,97 @@
+[gd_scene load_steps=11 format=3 uid="uid://b0pav740be3q"]
+
+[ext_resource type="Texture2D" uid="uid://cruqs6vfjprtp" path="res://bola.png" id="1_olbo4"]
+[ext_resource type="Texture2D" uid="uid://d0gke3r57dxpn" path="res://arma.png" id="2_sfomk"]
+[ext_resource type="PackedScene" uid="uid://conk6mjspvart" path="res://joystick_andar.tscn" id="3_ul7lt"]
+[ext_resource type="Script" path="res://character.gd" id="5_ip2cj"]
+[ext_resource type="PackedScene" uid="uid://0qv3nko0t55y" path="res://joystick_atirar.tscn" id="5_xxma2"]
+[ext_resource type="Texture2D" uid="uid://d3pr341msyngp" path="res://mira.png" id="6_asc0c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hidji"]
+radius = 89.5879
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2xosh"]
+bg_color = Color(0.843287, 0, 0.187833, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4c1px"]
+radius = 90.0888
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5c54w"]
+properties/0/path = NodePath("arma:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("arma:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("arma:visible")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[node name="character" type="CharacterBody2D"]
+script = ExtResource("5_ip2cj")
+
+[node name="bola" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_olbo4")
+
+[node name="arma" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_sfomk")
+
+[node name="camera" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(640, 360)
+shape = SubResource("CircleShape2D_hidji")
+
+[node name="joystick_atirar" parent="." instance=ExtResource("5_xxma2")]
+position = Vector2(1048, 508)
+scale = Vector2(0.7, 0.7)
+
+[node name="joystick_andar" parent="." instance=ExtResource("3_ul7lt")]
+position = Vector2(210, 527)
+scale = Vector2(0.7, 0.7)
+
+[node name="mira" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(640, 50)
+scale = Vector2(50, 50)
+texture = ExtResource("6_asc0c")
+
+[node name="saude" type="ProgressBar" parent="."]
+offset_left = 565.0
+offset_top = 278.0
+offset_right = 715.0
+offset_bottom = 308.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_2xosh")
+max_value = 15.0
+step = 1.0
+value = 15.0
+show_percentage = false
+
+[node name="timer0" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+autostart = true
+
+[node name="timer1" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(640, 360)
+shape = SubResource("CircleShape2D_4c1px")
+
+[node name="multiplayer_synchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5c54w")
+
+[connection signal="timeout" from="timer0" to="." method="_on_timer_0_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

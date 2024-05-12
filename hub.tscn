@@ -1,0 +1,163 @@
+[gd_scene load_steps=13 format=3 uid="uid://3ow5m0minlt2"]
+
+[ext_resource type="Script" path="res://hub.gd" id="1_p106a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6hjq"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52kkm"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+expand_margin_bottom = 20.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vyybt"]
+bg_color = Color(0.23165, 0.23165, 0.23165, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+expand_margin_bottom = 20.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fgvto"]
+bg_color = Color(0, 0, 0, 1)
+draw_center = false
+border_color = Color(1, 1, 1, 1)
+anti_aliasing = false
+
+[sub_resource type="GDScript" id="GDScript_0pdwg"]
+script/source = "extends Button
+
+
+func _ready():
+  position.x = (get_viewport_rect().size.x - 500) / 2
+  position.y = (get_viewport_rect().size.y - 250) / 2
+      
+      
+func _on_pressed():
+  get_tree().change_scene_to_file(\"res://zero.tscn\")
+  # res://zero.tscn is one of the maps I need to make
+  # I need to make other game modes too
+  self.queue_free()
+            
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_va5qo"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlpum"]
+bg_color = Color(0.230315, 0.230315, 0.230315, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0w8qk"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dil4m"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmjeq"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kynir"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+anti_aliasing = false
+
+[node name="hub" type="Node2D"]
+script = ExtResource("1_p106a")
+
+[node name="jogar" type="Button" parent="."]
+visible = false
+offset_left = 348.0
+offset_top = 140.0
+offset_right = 774.0
+offset_bottom = 379.0
+theme_override_font_sizes/font_size = 120
+theme_override_styles/normal = SubResource("StyleBoxFlat_j6hjq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_52kkm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_vyybt")
+theme_override_styles/focus = SubResource("StyleBoxFlat_fgvto")
+text = "Jogar"
+script = SubResource("GDScript_0pdwg")
+
+[node name="host" type="Button" parent="."]
+offset_left = 420.0
+offset_top = 149.0
+offset_right = 820.0
+offset_bottom = 359.0
+theme_override_font_sizes/font_size = 120
+theme_override_styles/normal = SubResource("StyleBoxFlat_va5qo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jlpum")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0w8qk")
+text = "Host"
+
+[node name="join" type="Button" parent="."]
+offset_left = 432.0
+offset_top = 376.0
+offset_right = 832.0
+offset_bottom = 586.0
+theme_override_font_sizes/font_size = 120
+theme_override_styles/normal = SubResource("StyleBoxFlat_dil4m")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gmjeq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kynir")
+text = "Join"
+
+[connection signal="pressed" from="jogar" to="jogar" method="_on_pressed"]
+[connection signal="pressed" from="host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="join" to="." method="_on_join_pressed"]
