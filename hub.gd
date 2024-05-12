@@ -3,7 +3,7 @@ extends Node2D
 
 var zero_map = load("res://zero.tscn")
 var host
-
+#comentario teste
 
 func _ready():
   $host.position.x = (get_viewport_rect().size.x - 500) / 2
