@@ -3,6 +3,7 @@ extends Node2D
 
 var zero_map = load("res://zero.tscn")
 var host
+var avatar_pressed = -1
 
 
 func _ready():
@@ -20,3 +21,17 @@ func _on_host_pressed():
 func _on_join_pressed():
   host = false
   call_deferred("add_sibling", zero_map.instantiate())
+
+
+func _input(event):
+  if event is InputEventScreenTouch and not event.pressed:
+    if event.position.x > 30 and event.position.x < 183.6 + 160 and event.position.y > 0 and event.position.y < 183.6:
+      call_deferred("add_sibling", load("res://avatar.tscn").instantiate())
+      queue_free()
+    elif avatar_pressed == event.index:
+      avatar_pressed = -1
+      $avatar.texture = load("res://avatar_normal.png")
+  elif event is InputEventScreenTouch and event.pressed:
+    if event.position.x > 30 and event.position.x < 183.6 + 160 and event.position.y > 0 and event.position.y < 183.6:
+      $avatar.texture = load("res://avatar_pressed.png")
+      avatar_pressed = event.index

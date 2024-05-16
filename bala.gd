@@ -8,18 +8,6 @@ var goto = Vector2(0, 0)
 func _ready():
   scale = Vector2(0.25, 0.25)
   # self.scale deve ser igual a $"../character".scale ns mapas
-  #$"../multiplayer_synchronizer".replication_config.add_property(name + ":position")
-  #print($"../multiplayer_synchronizer".replication_config.get_properties())
-  """
-  goto = $"../joystick_atirar".go_to
-  var angle = $"../joystick_atirar".angle
-  var radius = $"../joystick_atirar".radius
-  global_position = Vector2($"../".global_position.x + 640 + sin(angle) * radius,
-                            $"../".global_position.y + 360 - cos(angle) * radius)
-  rotation = angle
-  velocity = goto * speed
-  $timer.start()
-  """
 
 
 func usar():
@@ -27,8 +15,8 @@ func usar():
   goto = $"../joystick_atirar".go_to
   var angle = $"../joystick_atirar".angle
   var radius = $"../joystick_atirar".radius
-  global_position = Vector2($"../".global_position.x + 640 + sin(angle) * radius,
-                            $"../".global_position.y + 360 - cos(angle) * radius)
+  global_position = Vector2($"../".global_position.x + 640 + sin(angle) * (radius + 100),
+                            $"../".global_position.y + 360 - cos(angle) * (radius + 100))
   rotation = angle
   velocity = goto * speed
   $timer.start()

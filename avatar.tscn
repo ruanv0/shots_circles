@@ -1,0 +1,413 @@
+[gd_scene load_steps=22 format=3 uid="uid://cwecqqntqbhyj"]
+
+[ext_resource type="Texture2D" uid="uid://k6wh64eb845r" path="res://circulos/circulo_amarelo.png" id="1_88vfk"]
+[ext_resource type="Script" path="res://avatar.gd" id="1_o0snk"]
+[ext_resource type="Texture2D" uid="uid://kbqsid8bndry" path="res://circulos/circulo_azul.png" id="2_lm1g0"]
+[ext_resource type="Texture2D" uid="uid://blrbs1uj8sj3i" path="res://back_button.png" id="2_vpdvi"]
+[ext_resource type="Texture2D" uid="uid://bxp7r0vvcdbjh" path="res://circulos/circulo_banana.png" id="3_wkm6l"]
+[ext_resource type="Texture2D" uid="uid://b01eqjfn1kl3k" path="res://circulos/circulo_branco.png" id="4_jjv1m"]
+[ext_resource type="Texture2D" uid="uid://dwpv35dc27kaj" path="res://circulos/circulo_caqui.png" id="5_2h4eg"]
+[ext_resource type="Texture2D" uid="uid://dgxh51mldq4co" path="res://circulos/circulo_ciano.png" id="6_8uqg1"]
+[ext_resource type="Texture2D" uid="uid://dc37ghjyks2pb" path="res://circulos/circulo_cinza.png" id="7_rh7c2"]
+[ext_resource type="Texture2D" uid="uid://bjigumcksgb5l" path="res://circulos/circulo_coral.png" id="8_mhcfj"]
+[ext_resource type="Texture2D" uid="uid://dxtx830xgq8g0" path="res://circulos/circulo_laranja.png" id="9_dnfkg"]
+[ext_resource type="Texture2D" uid="uid://b53eqy13mn5s1" path="res://circulos/circulo_limao.png" id="10_qqhyl"]
+[ext_resource type="Texture2D" uid="uid://bml21myiwqdjf" path="res://circulos/circulo_marrom.png" id="11_q3hbx"]
+[ext_resource type="Texture2D" uid="uid://bntm10a4cf41q" path="res://circulos/circulo_preto.png" id="12_s543k"]
+[ext_resource type="Texture2D" uid="uid://ewmp58e46h58" path="res://circulos/circulo_rosa_claro.png" id="13_lpsep"]
+[ext_resource type="Texture2D" uid="uid://bgffpejtwgpwg" path="res://circulos/circulo_rosa_escuro.png" id="14_tmdij"]
+[ext_resource type="Texture2D" uid="uid://dyqliyd657fmj" path="res://circulos/circulo_roxo.png" id="15_siogh"]
+[ext_resource type="Texture2D" uid="uid://cu5vbkb3yo52o" path="res://circulos/circulo_verde.png" id="16_c2suk"]
+[ext_resource type="Texture2D" uid="uid://7ok1q3yuxfe3" path="res://circulos/circulo_vermelho.png" id="17_icipo"]
+[ext_resource type="Texture2D" uid="uid://l0acq5pdbete" path="res://circulos/circulo_vinho.png" id="18_osopg"]
+[ext_resource type="Texture2D" uid="uid://btdfqqnjfwpa6" path="res://fundo_claro.png" id="20_ctk6g"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_o0snk")
+
+[node name="name_text" type="LineEdit" parent="."]
+offset_left = 645.0
+offset_top = 58.0
+offset_right = 1212.0
+offset_bottom = 121.0
+theme_override_font_sizes/font_size = 40
+placeholder_text = "Escreva seu nome ou apelido"
+max_length = 12
+
+[node name="back" type="Sprite2D" parent="."]
+position = Vector2(50, 40)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_vpdvi")
+centered = false
+
+[node name="select" type="Sprite2D" parent="."]
+texture = ExtResource("20_ctk6g")
+centered = false
+
+[node name="name" type="Label" parent="."]
+offset_left = 500.0
+offset_top = 60.0
+offset_right = 627.0
+offset_bottom = 115.0
+theme_override_font_sizes/font_size = 40
+text = "Nome:"
+
+[node name="avatar" type="Label" parent="."]
+offset_left = 150.0
+offset_top = 25.0
+offset_right = 514.0
+offset_bottom = 148.0
+theme_override_font_sizes/font_size = 80
+text = "Avatar"
+
+[node name="escolha" type="Label" parent="."]
+offset_left = 50.0
+offset_top = 140.0
+offset_right = 375.0
+offset_bottom = 195.0
+theme_override_font_sizes/font_size = 40
+text = "Escolha a sua cor"
+
+[node name="amarelo_" type="Sprite2D" parent="."]
+position = Vector2(46, 198)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_88vfk")
+centered = false
+
+[node name="amarelo" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 147.0
+offset_top = 218.0
+offset_right = 309.0
+offset_bottom = 273.0
+theme_override_font_sizes/font_size = 40
+text = "Amarelo"
+
+[node name="azul_" type="Sprite2D" parent="."]
+position = Vector2(51, 296)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_lm1g0")
+centered = false
+
+[node name="azul" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 155.0
+offset_top = 317.0
+offset_right = 236.0
+offset_bottom = 372.0
+theme_override_font_sizes/font_size = 40
+text = "Azul"
+
+[node name="banana_" type="Sprite2D" parent="."]
+position = Vector2(48.0001, 379)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_wkm6l")
+centered = false
+
+[node name="banana" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 147.0
+offset_top = 400.0
+offset_right = 292.0
+offset_bottom = 455.0
+theme_override_font_sizes/font_size = 40
+text = "Banana"
+
+[node name="branco_" type="Sprite2D" parent="."]
+position = Vector2(45, 460)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_jjv1m")
+centered = false
+
+[node name="branco" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = 481.0
+offset_right = 285.0
+offset_bottom = 536.0
+theme_override_font_sizes/font_size = 40
+text = "Branco"
+
+[node name="caqui_" type="Sprite2D" parent="."]
+position = Vector2(48.0001, 543)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_2h4eg")
+centered = false
+
+[node name="caqui" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 148.0
+offset_top = 565.0
+offset_right = 257.0
+offset_bottom = 620.0
+theme_override_font_sizes/font_size = 40
+text = "Cáqui"
+
+[node name="ciano_" type="Sprite2D" parent="."]
+position = Vector2(371, 201)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_8uqg1")
+centered = false
+
+[node name="ciano" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 476.0
+offset_top = 229.0
+offset_right = 584.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 40
+text = "Ciano"
+
+[node name="cinza_" type="Sprite2D" parent="."]
+position = Vector2(369, 286)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_rh7c2")
+centered = false
+
+[node name="cinza" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 470.0
+offset_top = 319.0
+offset_right = 573.0
+offset_bottom = 374.0
+theme_override_font_sizes/font_size = 40
+text = "Cinza"
+
+[node name="coral_" type="Sprite2D" parent="."]
+position = Vector2(369, 372)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("8_mhcfj")
+centered = false
+
+[node name="coral" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 469.0
+offset_top = 401.0
+offset_right = 569.0
+offset_bottom = 456.0
+theme_override_font_sizes/font_size = 40
+text = "Coral"
+
+[node name="laranja_" type="Sprite2D" parent="."]
+position = Vector2(369, 457)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("9_dnfkg")
+centered = false
+
+[node name="laranja" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 463.0
+offset_top = 479.0
+offset_right = 607.0
+offset_bottom = 534.0
+theme_override_font_sizes/font_size = 40
+text = "Laranja"
+
+[node name="limao_" type="Sprite2D" parent="."]
+position = Vector2(369, 537)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_qqhyl")
+centered = false
+
+[node name="limao" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 460.0
+offset_top = 560.0
+offset_right = 578.0
+offset_bottom = 615.0
+theme_override_font_sizes/font_size = 40
+text = "Limão"
+
+[node name="marrom_" type="Sprite2D" parent="."]
+position = Vector2(647, 291)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("11_q3hbx")
+centered = false
+
+[node name="marrom" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 747.0
+offset_top = 313.0
+offset_right = 903.0
+offset_bottom = 368.0
+theme_override_font_sizes/font_size = 40
+text = "Marrom"
+
+[node name="preto_" type="Sprite2D" parent="."]
+position = Vector2(650, 203)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("12_s543k")
+centered = false
+
+[node name="preto" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 745.0
+offset_top = 225.0
+offset_right = 850.0
+offset_bottom = 280.0
+theme_override_font_sizes/font_size = 40
+text = "Preto"
+
+[node name="rosaclaro_" type="Sprite2D" parent="."]
+position = Vector2(647, 376)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("13_lpsep")
+centered = false
+
+[node name="rosa_claro" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 741.0
+offset_top = 401.0
+offset_right = 938.0
+offset_bottom = 456.0
+theme_override_font_sizes/font_size = 40
+text = "Rosa claro"
+
+[node name="rosaescuro_" type="Sprite2D" parent="."]
+position = Vector2(647, 462)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("14_tmdij")
+centered = false
+
+[node name="rosa_escuro" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 740.0
+offset_top = 487.0
+offset_right = 970.0
+offset_bottom = 542.0
+theme_override_font_sizes/font_size = 40
+text = "Rosa escuro"
+
+[node name="roxo_" type="Sprite2D" parent="."]
+position = Vector2(647, 547)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("15_siogh")
+centered = false
+
+[node name="roxo" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 740.0
+offset_top = 563.0
+offset_right = 836.0
+offset_bottom = 618.0
+theme_override_font_sizes/font_size = 40
+text = "Roxo"
+
+[node name="verde_" type="Sprite2D" parent="."]
+position = Vector2(959, 211)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("16_c2suk")
+centered = false
+
+[node name="verde" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 1067.0
+offset_top = 241.0
+offset_right = 1180.0
+offset_bottom = 296.0
+theme_override_font_sizes/font_size = 40
+text = "Verde"
+
+[node name="vermelho_" type="Sprite2D" parent="."]
+position = Vector2(962, 294)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("17_icipo")
+centered = false
+
+[node name="vermelho" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 1062.0
+offset_top = 320.0
+offset_right = 1248.0
+offset_bottom = 375.0
+theme_override_font_sizes/font_size = 40
+text = "Vermelho"
+
+[node name="vinho_" type="Sprite2D" parent="."]
+position = Vector2(962, 385)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("18_osopg")
+centered = false
+
+[node name="vinho" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.261
+anchor_top = 1.0
+anchor_right = 0.261
+anchor_bottom = 1.0
+offset_left = 1059.0
+offset_top = 411.0
+offset_right = 1169.0
+offset_bottom = 466.0
+theme_override_font_sizes/font_size = 40
+text = "Vinho"
+
+[connection signal="text_changed" from="name_text" to="." method="_on_name_text_text_changed"]

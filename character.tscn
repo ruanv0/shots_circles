@@ -1,21 +1,22 @@
-[gd_scene load_steps=12 format=3 uid="uid://b0pav740be3q"]
+[gd_scene load_steps=14 format=3 uid="uid://b0pav740be3q"]
 
-[ext_resource type="Texture2D" uid="uid://cruqs6vfjprtp" path="res://bola.png" id="1_olbo4"]
+[ext_resource type="Texture2D" uid="uid://k6wh64eb845r" path="res://circulos/circulo_amarelo.png" id="2_amlq5"]
 [ext_resource type="Texture2D" uid="uid://d0gke3r57dxpn" path="res://arma.png" id="2_sfomk"]
 [ext_resource type="PackedScene" uid="uid://conk6mjspvart" path="res://joystick_andar.tscn" id="3_ul7lt"]
 [ext_resource type="Script" path="res://character.gd" id="5_ip2cj"]
 [ext_resource type="PackedScene" uid="uid://0qv3nko0t55y" path="res://joystick_atirar.tscn" id="5_xxma2"]
 [ext_resource type="Texture2D" uid="uid://d3pr341msyngp" path="res://mira.png" id="6_asc0c"]
 [ext_resource type="PackedScene" uid="uid://capvk35y13reg" path="res://bala.tscn" id="7_vji8y"]
+[ext_resource type="FontFile" uid="uid://bmlhr6t0e2ycg" path="res://UbuntuSansMono-VariableFont_wght.ttf" id="8_dlrhy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hidji"]
-radius = 89.5879
+radius = 113.004
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2xosh"]
 bg_color = Color(0.843287, 0, 0.187833, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4c1px"]
-radius = 90.0888
+radius = 115.352
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5c54w"]
 properties/0/path = NodePath("arma:position")
@@ -26,7 +27,7 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 properties/2/path = NodePath("arma:visible")
 properties/2/spawn = true
-properties/2/replication_mode = 1
+properties/2/replication_mode = 2
 properties/3/path = NodePath(".:position")
 properties/3/spawn = true
 properties/3/replication_mode = 1
@@ -38,7 +39,7 @@ properties/5/spawn = true
 properties/5/replication_mode = 1
 properties/6/path = NodePath("bala0:visible")
 properties/6/spawn = true
-properties/6/replication_mode = 1
+properties/6/replication_mode = 2
 properties/7/path = NodePath("bala1:position")
 properties/7/spawn = true
 properties/7/replication_mode = 1
@@ -47,7 +48,7 @@ properties/8/spawn = true
 properties/8/replication_mode = 1
 properties/9/path = NodePath("bala1:visible")
 properties/9/spawn = true
-properties/9/replication_mode = 1
+properties/9/replication_mode = 2
 properties/10/path = NodePath("bala2:position")
 properties/10/spawn = true
 properties/10/replication_mode = 1
@@ -56,15 +57,40 @@ properties/11/spawn = true
 properties/11/replication_mode = 1
 properties/12/path = NodePath("bala2:visible")
 properties/12/spawn = true
-properties/12/replication_mode = 1
+properties/12/replication_mode = 2
+properties/13/path = NodePath("saude:value")
+properties/13/spawn = true
+properties/13/replication_mode = 2
+properties/14/path = NodePath(".:metadata/cor")
+properties/14/spawn = true
+properties/14/replication_mode = 2
+properties/15/path = NodePath("name:text")
+properties/15/spawn = true
+properties/15/replication_mode = 2
+properties/16/path = NodePath("name:position")
+properties/16/spawn = true
+properties/16/replication_mode = 2
+properties/17/path = NodePath("circulo:visible")
+properties/17/spawn = true
+properties/17/replication_mode = 2
+properties/18/path = NodePath("name:theme_override_font_sizes/font_size")
+properties/18/spawn = true
+properties/18/replication_mode = 2
+properties/19/path = NodePath("name:theme_override_colors/font_color")
+properties/19/spawn = true
+properties/19/replication_mode = 2
+
+[sub_resource type="FontVariation" id="FontVariation_4jd24"]
+base_font = ExtResource("8_dlrhy")
 
 [node name="character" type="CharacterBody2D"]
 script = ExtResource("5_ip2cj")
+metadata/cor = -1
 
-[node name="bola" type="Sprite2D" parent="."]
+[node name="circulo" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_olbo4")
+texture = ExtResource("2_amlq5")
 
 [node name="arma" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -129,6 +155,15 @@ visible = false
 
 [node name="bala2" parent="." instance=ExtResource("7_vji8y")]
 visible = false
+
+[node name="name" type="Label" parent="."]
+offset_left = 543.0
+offset_top = 371.0
+offset_right = 571.0
+offset_bottom = 431.0
+theme_override_fonts/font = SubResource("FontVariation_4jd24")
+theme_override_font_sizes/font_size = 50
+text = "teste"
 
 [connection signal="timeout" from="timer0" to="." method="_on_timer_0_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
