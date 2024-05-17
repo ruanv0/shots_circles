@@ -27,7 +27,7 @@ func load_data():
     json.parse(json_string)
     var node_data = json.get_data()
     language = node_data["language"]
-    cor = node_data["cor"]
+    cor = int(node_data["cor"])
     user_name = node_data["user_name"]
     
 
