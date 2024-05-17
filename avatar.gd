@@ -15,13 +15,13 @@ var back_pressed = -1
 
 func select(num_cor: int):
   var y = 720 - 190 - 30 # == 500
-  $select.scale = Vector2(colunas_px[floor(num_cor / 5)] + 100,
+  $select.scale = Vector2(colunas_px[floor(num_cor / 5.0)] + 100,
                           100)
   var x_ = 0
-  for j in range(0, floor(num_cor / 5)):
+  for j in range(0, floor(num_cor / 5.0)):
     x_ += colunas_px[j] + 100
   $select.global_position = Vector2(50 + x_,
-                                    190 + y / 5 * (num_cor % 5))
+                                    190 + y / 5.0 * (num_cor % 5))
   if player_info.cor != num_cor:
     player_info.cor = num_cor
     player_info.save()
@@ -54,11 +54,11 @@ func _ready():
   var y = 720 - 190 - 30 # == 500
   for i in range(0, len(botoes)):
     var x_ = 0
-    botoes[i].global_position.y = 190 + y / 5 * (i % 5) + 5
-    for j in range(0, floor(i / 5)):
+    botoes[i].global_position.y = 190 + y / 5.0 * (i % 5) + 5
+    for j in range(0, floor(i / 5.0)):
       x_ += colunas_px[j] + 100
     botoes[i].global_position.x = 50 + x_ + 5
-    textos[i].global_position.y = 190 + y / 5 * (i % 5) + 25
+    textos[i].global_position.y = 190 + y / 5.0 * (i % 5) + 25
     textos[i].global_position.x = 50 + x_ + 100
   select(player_info.cor)
 

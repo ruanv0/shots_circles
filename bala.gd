@@ -12,6 +12,7 @@ func _ready():
 
 func usar():
   visible = true
+  $CollisionShape2D.disabled = false
   goto = $"../joystick_atirar".go_to
   var angle = $"../joystick_atirar".angle
   var radius = $"../joystick_atirar".radius
@@ -25,15 +26,15 @@ func usar():
 func parar():
   $timer.stop()
   visible = false
+  $CollisionShape2D.disabled = true
   velocity = Vector2(0, 0)
   $"../".desativar_bala(str(name)[4])
 
 
 func _physics_process(_delta):
   if $timer.is_stopped() and visible:
-    #$"../multiplayer_synchronizer".replication_config.remove_property(name + ":position")
-    #queue_free()
     visible = false
+    $CollisionShape2D.disabled = true
     velocity = Vector2(0, 0)
     $"../".desativar_bala(str(name)[4])
   move_and_slide()
@@ -66,3 +67,9 @@ func _on_area_2d_2_body_entered(body):
       goto.x *= -1
     velocity = goto * speed
     rotation = - rotation
+
+
+func _on_area_2d_3_body_entered(body):
+  if "player" in body.name and $"..".name != body.name:
+    body.hurt()
+    parar()

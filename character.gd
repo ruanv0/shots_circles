@@ -33,7 +33,7 @@ func _ready():
     if len(player_info.user_name) > 7:
       $name.add_theme_font_size_override("font_size", 50 / float(len(player_info.user_name)) * 7)
     else:
-      $name.position.x += 28 * (7 - len(player_info.user_name)) / 2
+      $name.position.x += 28 * (7 - len(player_info.user_name)) / 2.0
   $camera.visible = is_multiplayer_authority()
   $joystick_andar.visible = is_multiplayer_authority()
   $joystick_atirar.visible = is_multiplayer_authority()
@@ -87,15 +87,18 @@ func _physics_process(delta):
     move_and_slide()
 
 
-func _on_area_2d_body_entered(body):
-  # As balas tem nomes como "bala", "bala1", "bala2", "bala17" e outros
-  # Com modos em equipe, é preciso no futuro
-  # diferenciar as balas aliadas e adversárias
-  if "bala" in body.name:
-    body.parar()
+func hurt():
+  $saude.value -= 1
+  $timer1.start()
+  if $saude.value == 0:
     if is_multiplayer_authority():
-      $saude.value -= 1
-      $timer1.start()
+      $fundo.visible = true
+      $renascer.visible = true
+      $renascer/timer.start()
+    $circulo.visible = false
+    $arma.visible = false
+    $saude.visible = false
+    $name.visible = false
 
 
 func _on_timer_0_timeout():

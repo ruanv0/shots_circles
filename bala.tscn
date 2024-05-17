@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://capvk35y13reg"]
+[gd_scene load_steps=7 format=3 uid="uid://capvk35y13reg"]
 
 [ext_resource type="Texture2D" uid="uid://d2fypithkn1h4" path="res://bala.png" id="1_kiv0q"]
 [ext_resource type="Script" path="res://bala.gd" id="1_yy8lt"]
@@ -6,11 +6,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hxqj3"]
 size = Vector2(22, 61)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nffxe"]
+size = Vector2(6, 30)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iirel"]
 size = Vector2(6, 30)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nffxe"]
-size = Vector2(6, 30)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i0edl"]
+size = Vector2(26, 32)
 
 [node name="bala" type="CharacterBody2D"]
 script = ExtResource("1_yy8lt")
@@ -18,6 +21,7 @@ script = ExtResource("1_yy8lt")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 1.5)
 shape = SubResource("RectangleShape2D_hxqj3")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2, 1.25)
@@ -28,17 +32,24 @@ texture = ExtResource("1_kiv0q")
 wait_time = 0.6
 one_shot = true
 
-[node name="Area2D2" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
-position = Vector2(-7, -15)
-shape = SubResource("RectangleShape2D_iirel")
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(11, -15)
 shape = SubResource("RectangleShape2D_nffxe")
 
-[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(-7, -15)
+shape = SubResource("RectangleShape2D_iirel")
+
+[node name="Area2D3" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+position = Vector2(2, -16)
+shape = SubResource("RectangleShape2D_i0edl")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_entered" from="Area2D3" to="." method="_on_area_2d_3_body_entered"]
