@@ -8,7 +8,14 @@
 script/source = "extends Node2D
 
 
-var spawnpoints = []
+var spawnpoints = [Vector2(-390, 755), Vector2(989, 755), Vector2(1100, -800), Vector2(-500, -800),
+                   Vector2(300, 1400), Vector2(300, -1400), Vector2(-1100, 0), Vector2(1700, 0),
+                   Vector2(2500, 0), Vector2(-1900, 0), Vector2(2850, -2500), Vector2(-2250, -2500),
+                   Vector2(-2250, 2500), Vector2(2850, 2500), Vector2(300, 2100), Vector2(300, -2100),
+                   Vector2(2200, -1850), Vector2(-1600, -1850), Vector2(-1600, 1850), Vector2(2200, 1850),
+                   Vector2(3200, -1200), Vector2(3200, 1200), Vector2(1500, 2950), Vector2(-900, 2950),
+                   Vector2(-2600, 1200), Vector2(-2600, -1200), Vector2(-900, -2950), Vector2(1500, -2950),
+                   Vector2(1500, -1200), Vector2(-900, -1200), Vector2(-900, 1200), Vector2(1500, 1200)]
 var spawnpoints_used = [false, false, false, false,
                         false, false, false, false,
                         false, false, false, false,
@@ -24,13 +31,10 @@ func spawn_point():
   var spawn_idx = spawnpoints_used.find(false)
   spawnpoints_used[spawn_idx] = true
   $spawnpoints.get_node(\"timer\" + str(spawn_idx)).start()
-  return spawnpoints[spawn_idx].global_position
+  return spawnpoints[spawn_idx]
 
 
 func _ready():
-  for i in $spawnpoints.get_children():
-    if i is Node2D:
-      spawnpoints.append(i)
   quantity_children = get_child_count()
 
 
@@ -186,225 +190,129 @@ player_scene = ExtResource("3_klaf3")
 
 [node name="spawnpoints" type="Node2D" parent="."]
 
-[node name="0" type="Node2D" parent="spawnpoints"]
-position = Vector2(-390, 755)
-
 [node name="timer0" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="1" type="Node2D" parent="spawnpoints"]
-position = Vector2(989, 755)
 
 [node name="timer1" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="2" type="Node2D" parent="spawnpoints"]
-position = Vector2(1100, -800)
-
 [node name="timer2" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="3" type="Node2D" parent="spawnpoints"]
-position = Vector2(-500, -800)
 
 [node name="timer3" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="4" type="Node2D" parent="spawnpoints"]
-position = Vector2(300, 1400)
-
 [node name="timer4" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="5" type="Node2D" parent="spawnpoints"]
-position = Vector2(300, -1400)
 
 [node name="timer5" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="6" type="Node2D" parent="spawnpoints"]
-position = Vector2(-1100, 0)
-
 [node name="timer6" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="7" type="Node2D" parent="spawnpoints"]
-position = Vector2(1700, 0)
 
 [node name="timer7" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="8" type="Node2D" parent="spawnpoints"]
-position = Vector2(2437, 63)
-
 [node name="timer8" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="9" type="Node2D" parent="spawnpoints"]
-position = Vector2(-1906, 38)
 
 [node name="timer9" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="10" type="Node2D" parent="spawnpoints"]
-position = Vector2(2894, -2489)
-
 [node name="timer10" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="11" type="Node2D" parent="spawnpoints"]
-position = Vector2(-2135, -2603)
 
 [node name="timer11" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="12" type="Node2D" parent="spawnpoints"]
-position = Vector2(-2287, 2566)
-
 [node name="timer12" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="13" type="Node2D" parent="spawnpoints"]
-position = Vector2(2907, 2668)
 
 [node name="timer13" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="14" type="Node2D" parent="spawnpoints"]
-position = Vector2(265, 2274)
-
 [node name="timer14" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="15" type="Node2D" parent="spawnpoints"]
-position = Vector2(303, -2056)
 
 [node name="timer15" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="16" type="Node2D" parent="spawnpoints"]
-position = Vector2(2187, -1885)
-
 [node name="timer16" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="17" type="Node2D" parent="spawnpoints"]
-position = Vector2(-1542, -1904)
 
 [node name="timer17" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="18" type="Node2D" parent="spawnpoints"]
-position = Vector2(-1618, 1844)
-
 [node name="timer18" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="19" type="Node2D" parent="spawnpoints"]
-position = Vector2(2168, 1844)
 
 [node name="timer19" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="20" type="Node2D" parent="spawnpoints"]
-position = Vector2(3138, -1124)
-
 [node name="timer20" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="21" type="Node2D" parent="spawnpoints"]
-position = Vector2(3195, 1273)
 
 [node name="timer21" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="22" type="Node2D" parent="spawnpoints"]
-position = Vector2(1502, 2814)
-
 [node name="timer22" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="23" type="Node2D" parent="spawnpoints"]
-position = Vector2(-914, 2833)
 
 [node name="timer23" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="24" type="Node2D" parent="spawnpoints"]
-position = Vector2(-2665, 1197)
-
 [node name="timer24" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="25" type="Node2D" parent="spawnpoints"]
-position = Vector2(-2665, -1048)
 
 [node name="timer25" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="26" type="Node2D" parent="spawnpoints"]
-position = Vector2(-857, -2951)
-
 [node name="timer26" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="27" type="Node2D" parent="spawnpoints"]
-position = Vector2(1445, -2875)
 
 [node name="timer27" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="28" type="Node2D" parent="spawnpoints"]
-position = Vector2(1426, -1182)
-
 [node name="timer28" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="29" type="Node2D" parent="spawnpoints"]
-position = Vector2(-876, -1144)
 
 [node name="timer29" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
 
-[node name="30" type="Node2D" parent="spawnpoints"]
-position = Vector2(-933, 1234)
-
 [node name="timer30" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
 one_shot = true
-
-[node name="31" type="Node2D" parent="spawnpoints"]
-position = Vector2(1483, 1177)
 
 [node name="timer31" type="Timer" parent="spawnpoints"]
 wait_time = 2.0
