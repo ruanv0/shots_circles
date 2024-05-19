@@ -4,7 +4,6 @@ var touched = []
 var first_touch
 var old_position
 var radius = 150 * scale.x # scale.x deve ser igual a scale.y
-var bala = load("res://bala.tscn")
 var angle = 0
 var go_to = Vector2(0, 0)
 
