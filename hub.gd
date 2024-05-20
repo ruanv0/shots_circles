@@ -29,8 +29,10 @@ func _input(event):
       queue_free()
     elif avatar_pressed == event.index:
       avatar_pressed = -1
+      $avatar_label.add_theme_color_override("font_color", Color8(255, 255, 255))
       $avatar.texture = load("res://avatar_normal.png")
   elif event is InputEventScreenTouch and event.pressed:
     if event.position.x > 30 and event.position.x < 183.6 + 160 and event.position.y > 0 and event.position.y < 183.6:
+      $avatar_label.add_theme_color_override("font_color", Color8(134, 134, 134))
       $avatar.texture = load("res://avatar_pressed.png")
       avatar_pressed = event.index
