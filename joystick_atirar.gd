@@ -8,6 +8,7 @@ var angle = 0
 var go_to = Vector2(0, 0)
 
 
+@rpc("call_local")
 func _ready():
   if is_multiplayer_authority():
     old_position = global_position
@@ -21,9 +22,9 @@ func _input(event):
       if event.pressed:
         if distance <= radius && distance >= radius * -1:
           touched.append(event.index)
-          trocar_posicao(old_position - event.position, true)
+          trocar_posicao.rpc(old_position - event.position, true)
       elif not event.pressed && event.index in touched:
-        atirar()
+        atirar.rpc()
         touched.erase(event.index)
         $small_circle.position = Vector2(0, 0)
         go_to = Vector2(0, 0)
@@ -35,11 +36,12 @@ func _input(event):
     
     elif event is InputEventScreenDrag && event.index == first_touch:
       if event.position.distance_to(old_position) > radius:
-        trocar_posicao(old_position - event.position, true)
+        trocar_posicao.rpc(old_position - event.position, true)
       else:
-        trocar_posicao(old_position - event.position, false)
+        trocar_posicao.rpc(old_position - event.position, false)
 
 
+@rpc("call_local")
 func trocar_posicao(position_: Vector2, so_long: bool):
   var x
   var y
@@ -87,6 +89,7 @@ func trocar_posicao(position_: Vector2, so_long: bool):
     $small_circle.position = Vector2(-position_.x, -position_.y)
 
 
+@rpc("call_local")
 func atirar():
   if $balas_bar.value > 0 and $timer2.is_stopped():
     $"../".ajustar_tiro()

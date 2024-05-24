@@ -21,23 +21,31 @@ func usar():
   rotation = angle
   velocity = goto * speed
   $timer.start()
+  if is_multiplayer_authority():
+    update_data.rpc(visible, global_position)
 
 
+@rpc("call_local")
 func parar():
   $timer.stop()
   visible = false
-  $CollisionShape2D.disabled = true
+  $CollisionShape2D.set_deferred("disabled", true)
   velocity = Vector2(0, 0)
   $"../".desativar_bala(str(name)[4])
+  if is_multiplayer_authority():
+    update_data.rpc(visible, global_position)
 
 
 func _physics_process(_delta):
-  if $timer.is_stopped() and visible:
-    visible = false
-    $CollisionShape2D.disabled = true
-    velocity = Vector2(0, 0)
-    $"../".desativar_bala(str(name)[4])
-  move_and_slide()
+  if is_multiplayer_authority():
+    update_data.rpc(visible, global_position)
+    move_and_slide()
+
+@rpc("call_remote", "unreliable")
+func update_data(visible_: bool, pos: Vector2):
+  visible = visible_
+  $CollisionShape2D.disabled = not visible
+  global_position = pos
 
 
 func _on_area_2d_body_entered(body):
@@ -70,6 +78,14 @@ func _on_area_2d_2_body_entered(body):
 
 
 func _on_area_2d_3_body_entered(body):
-  if "player" in body.name and $"..".name != body.name:
-    body.hurt()
-    parar()
+  if "player" in body.name and $"..".name != body.name and is_multiplayer_authority() and visible:
+    body.hurt.rpc()
+    parar.rpc()
+
+
+func _on_timer_timeout():
+  if visible:
+    visible = false
+    $CollisionShape2D.disabled = true
+    velocity = Vector2(0, 0)
+    $"../".desativar_bala(str(name)[4])

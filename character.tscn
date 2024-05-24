@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b0pav740be3q"]
+[gd_scene load_steps=14 format=3 uid="uid://b0pav740be3q"]
 
 [ext_resource type="Texture2D" uid="uid://k6wh64eb845r" path="res://circulos/circulo_amarelo.png" id="2_amlq5"]
 [ext_resource type="Texture2D" uid="uid://d0gke3r57dxpn" path="res://arma.png" id="2_sfomk"]
@@ -16,74 +16,6 @@ radius = 113.004
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2xosh"]
 bg_color = Color(0.843287, 0, 0.187833, 1)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5c54w"]
-properties/0/path = NodePath("arma:position")
-properties/0/spawn = true
-properties/0/replication_mode = 2
-properties/1/path = NodePath("arma:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 2
-properties/2/path = NodePath("arma:visible")
-properties/2/spawn = true
-properties/2/replication_mode = 2
-properties/3/path = NodePath(".:position")
-properties/3/spawn = true
-properties/3/replication_mode = 2
-properties/4/path = NodePath("bala0:position")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("bala0:rotation")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath("bala0:visible")
-properties/6/spawn = true
-properties/6/replication_mode = 1
-properties/7/path = NodePath("bala1:position")
-properties/7/spawn = true
-properties/7/replication_mode = 1
-properties/8/path = NodePath("bala1:rotation")
-properties/8/spawn = true
-properties/8/replication_mode = 1
-properties/9/path = NodePath("bala1:visible")
-properties/9/spawn = true
-properties/9/replication_mode = 1
-properties/10/path = NodePath("bala2:position")
-properties/10/spawn = true
-properties/10/replication_mode = 1
-properties/11/path = NodePath("bala2:rotation")
-properties/11/spawn = true
-properties/11/replication_mode = 1
-properties/12/path = NodePath("bala2:visible")
-properties/12/spawn = true
-properties/12/replication_mode = 1
-properties/13/path = NodePath("saude:value")
-properties/13/spawn = true
-properties/13/replication_mode = 2
-properties/14/path = NodePath(".:metadata/cor")
-properties/14/spawn = true
-properties/14/replication_mode = 2
-properties/15/path = NodePath("name:text")
-properties/15/spawn = true
-properties/15/replication_mode = 2
-properties/16/path = NodePath("name:position")
-properties/16/spawn = true
-properties/16/replication_mode = 2
-properties/17/path = NodePath("circulo:visible")
-properties/17/spawn = true
-properties/17/replication_mode = 2
-properties/18/path = NodePath("name:theme_override_font_sizes/font_size")
-properties/18/spawn = true
-properties/18/replication_mode = 2
-properties/19/path = NodePath("name:theme_override_colors/font_color")
-properties/19/spawn = true
-properties/19/replication_mode = 2
-properties/20/path = NodePath("saude:visible")
-properties/20/spawn = true
-properties/20/replication_mode = 1
-properties/21/path = NodePath("name:visible")
-properties/21/spawn = true
-properties/21/replication_mode = 1
-
 [sub_resource type="FontVariation" id="FontVariation_4jd24"]
 base_font = ExtResource("8_dlrhy")
 
@@ -96,19 +28,26 @@ func _process(_delta):
     text = \"Você reaparecerá em \" + str(floor($timer.time_left)) + \" segundos.\"
 
 
+@rpc(\"call_local\")
+func reviver():
+  $\"../circulo\".visible = true
+  $\"../arma\".visible = true
+  $\"../saude\".value = $\"../saude\".max_value
+  $\"../saude\".visible = true
+  $\"../name\".visible = true
+
+
 func _on_timer_timeout():
   visible = false
   $\"../fundo\".visible = false
-  $\"../circulo\".visible = true
-  $\"../arma\".visible = true
-  $\"../saude\".visible = true
-  $\"../saude\".value = $\"../saude\".max_value
-  $\"../name\".visible = true
+  reviver.rpc()
+  
 "
 
 [node name="character" type="CharacterBody2D"]
 script = ExtResource("5_ip2cj")
-metadata/cor = -1
+metadata/cor = 0
+metadata/user_name = ""
 
 [node name="circulo" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -128,10 +67,12 @@ position = Vector2(640, 360)
 shape = SubResource("CircleShape2D_hidji")
 
 [node name="joystick_atirar" parent="." instance=ExtResource("5_xxma2")]
+visible = false
 position = Vector2(1048, 508)
 scale = Vector2(0.7, 0.7)
 
 [node name="joystick_andar" parent="." instance=ExtResource("3_ul7lt")]
+visible = false
 position = Vector2(210, 527)
 scale = Vector2(0.7, 0.7)
 
@@ -160,9 +101,6 @@ autostart = true
 [node name="timer1" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
-
-[node name="multiplayer_synchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_5c54w")
 
 [node name="bala0" parent="." instance=ExtResource("7_vji8y")]
 visible = false
