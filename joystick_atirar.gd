@@ -8,7 +8,6 @@ var angle = 0
 var go_to = Vector2(0, 0)
 
 
-@rpc("call_local")
 func _ready():
   if is_multiplayer_authority():
     old_position = global_position

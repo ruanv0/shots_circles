@@ -5,17 +5,7 @@ var speed = 21000
 var balas_usadas = [false, false, false]
 
 
-func ajustar_tiro():
-  var num_bala = balas_usadas.find(false)
-  get_node("bala" + str(num_bala)).usar()
-  balas_usadas[num_bala] = true
-  
-
-func desativar_bala(num: String):
-  balas_usadas[int(num)] = false
-
-
-func preparar_(cor, username):
+func preparar(cor, user_name):
   var cores_pt = ["amarelo", "azul", "banana",
                   "branco", "caqui", "ciano",
                   "cinza", "coral", "laranja",
@@ -23,29 +13,40 @@ func preparar_(cor, username):
                   "rosa_claro", "rosa_escuro", "roxo",
                   "verde", "vermelho", "vinho"]
   $circulo.texture = load("res://circulos/circulo_" + cores_pt[cor] + ".png")
-  $name.text = username
+  $name.text = user_name
   if cor in [0, 2, 3, 4, 5, 7, 9, 12]:
     # Circulos claros com textos escuros
     # O texto é branco por padrão
     $name.add_theme_color_override("font_color", Color8(0, 0, 0))
-  if len(username) > 7:
-    $name.add_theme_font_size_override("font_size", 50 / float(len(username)) * 7)
+  if len(user_name) > 7:
+    $name.add_theme_font_size_override("font_size", 50 / float(len(user_name)) * 7)
   else:
-    $name.position.x += 28 * (7 - len(username)) / 2.0
+    $name.position.x += 28 * (7 - len(user_name)) / 2.0
   $camera.visible = is_multiplayer_authority()
   $joystick_andar.visible = is_multiplayer_authority()
   $joystick_atirar.visible = is_multiplayer_authority()
-
 
 
 func _enter_tree():
   var authority_name = str(name).replace("player", "")
   set_multiplayer_authority(authority_name.to_int())
 
+
 func _ready():
-  preparar_(get_meta("cor"), get_meta("user_name"))
+  preparar(get_meta("cor"), get_meta("user_name"))
   if is_multiplayer_authority():
     $camera.make_current()
+
+
+func ajustar_tiro():
+  var num_bala = balas_usadas.find(false)
+  get_node("bala" + str(num_bala)).usar()
+  balas_usadas[num_bala] = true
+
+
+func desativar_bala(num: String):
+  balas_usadas[int(num)] = false
+
 
 func andar(delta):
   var goto = $joystick_andar.go_to
@@ -93,7 +94,6 @@ func update_data(authority_position: Vector2, arma_visibility: bool, arma_rotati
   $arma.visible = arma_visibility
   $arma.rotation = arma_rotation
   $arma.position = arma_position
-
 
 
 @rpc("call_local", "any_peer")
