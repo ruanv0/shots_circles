@@ -26,6 +26,7 @@ func preparar(cor, user_name):
   $camera.visible = is_multiplayer_authority()
   $joystick_andar.visible = is_multiplayer_authority()
   $joystick_atirar.visible = is_multiplayer_authority()
+  $tempo.visible = is_multiplayer_authority()
 
 
 func _enter_tree():
@@ -83,6 +84,18 @@ func andar(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
   if is_multiplayer_authority():
+    var tempo = floori($"../game_timer".time_left)
+    if $tempo.text != str(tempo):
+      if floori(tempo / 60.0) >= 10:
+        if tempo % 60 >= 10:
+          $tempo.text = "Tempo: " + str(floori(tempo / 60.0)) + ":" + str(tempo % 60)
+        elif tempo % 60 < 10:
+          $tempo.text = "Tempo: " + str(floori(tempo / 60.0)) + ":0" + str(tempo % 60)
+      elif floori(tempo / 60.0) < 10:
+        if tempo % 60 >= 10:
+          $tempo.text = "Tempo: 0" + str(floori(tempo / 60.0)) + ":" + str(tempo % 60)
+        elif tempo % 60 < 10:
+          $tempo.text = "Tempo: 0" + str(floori(tempo / 60.0)) + ":0" + str(tempo % 60)
     andar(delta)
     # Mover com a variável velocity
     move_and_slide()
@@ -120,7 +133,7 @@ func hurt(attacker_name: String):
       $joystick_atirar.visible = 0
       $joystick_andar.position = Vector2(-220, 694)
       $joystick_andar.scale = Vector2(1.4, 1.4)
-    $CollisionShape2D.set_deferred("disabled", 1)
+    $collision_shape.set_deferred("disabled", 1)
     $circulo.visible = 0
     $arma.visible = 0
     $saude.visible = 0
@@ -135,9 +148,43 @@ func count_kill(last_attack_: String):
       break
 
 
+@rpc("call_local", "any_peer")
+func terminar():
+  $collision_shape.set_deferred("disabled", 1)
+  if is_multiplayer_authority():
+    $players_list.visible = 1
+    $kills_list.visible = 1
+    $players_list.clear()
+    $kills_list.clear()
+    $"../".sort_kills()
+    for i in $"../".kills:
+      $players_list.add_item(i[0])
+      $kills_list.add_item(str(i[1]))
+    $fundo.visible = 1
+    $camera.zoom = Vector2(0.5, 0.5)
+    $joystick_atirar.visible = 0
+    $joystick_andar.position = Vector2(-220, 694)
+    $joystick_andar.scale = Vector2(1.4, 1.4)
+    $terminando.visible = 1
+    $terminando/finish_timer.start()
+    $tempo.visible = 0
+
+
 func _on_timer_0_timeout():
   # O $timer0 é o tempo entre as adições de saúde
   # O $timer1 é o tempo após um tiro que tardaria as adições de saúde
   if $timer1.is_stopped() and $saude.value < $saude.max_value:
     $saude.value += 1
   $timer0.start()
+
+
+@rpc("call_local", "any_peer")
+func terminar_():
+  $"../../multiplayer_menu".visible = 1
+  $"..".queue_free()
+
+
+func _on_finish_timer_timeout():
+  # O host tem id 1
+  if multiplayer.get_unique_id() == 1:
+    terminar_.rpc()

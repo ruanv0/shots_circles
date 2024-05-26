@@ -38,7 +38,7 @@ func reviver(position_: Vector2):
   $\"../saude\".value = $\"../saude\".max_value
   $\"../saude\".visible = 1
   $\"../name\".visible = 1
-  $\"../CollisionShape2D\".set_deferred(\"disabled\", 0)
+  $\"../collision_shape\".set_deferred(\"disabled\", 0)
   if is_multiplayer_authority():
     $\"../camera\".zoom = Vector2(1, 1)
     $\"../joystick_atirar\".visible = 1
@@ -82,7 +82,7 @@ texture = ExtResource("2_sfomk")
 [node name="camera" type="Camera2D" parent="."]
 position = Vector2(640, 360)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="collision_shape" type="CollisionShape2D" parent="."]
 position = Vector2(640, 360)
 shape = SubResource("CircleShape2D_hidji")
 
@@ -190,5 +190,28 @@ script = SubResource("GDScript_0l0ii")
 wait_time = 3.0
 one_shot = true
 
+[node name="tempo" type="Label" parent="."]
+visible = false
+offset_left = 200.0
+offset_right = 303.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "10:30"
+
+[node name="terminando" type="Label" parent="."]
+visible = false
+offset_left = 90.0
+offset_top = 740.0
+offset_right = 1079.0
+offset_bottom = 877.0
+theme_override_font_sizes/font_size = 100
+text = "Terminando o jogo..."
+
+[node name="finish_timer" type="Timer" parent="terminando"]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="timeout" from="timer0" to="." method="_on_timer_0_timeout"]
 [connection signal="timeout" from="renascer/timer" to="renascer" method="_on_timer_timeout"]
+[connection signal="timeout" from="terminando/finish_timer" to="." method="_on_finish_timer_timeout"]

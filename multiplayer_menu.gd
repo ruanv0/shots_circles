@@ -5,6 +5,7 @@ var host
 var connected_peer_ids = []
 var peer_colors = []
 var peer_names = []
+var tempo = 630
 
 
 func _ready():
@@ -21,10 +22,13 @@ func _ready():
         add_myself.rpc_id(new_peer_id, new_peer_id)
     )
     $iniciar.visible = 1
+    $tempo_host.visible = 1
   elif not host:
     var peer = ENetMultiplayerPeer.new()
     peer.create_client("127.0.0.1", 54822)
     multiplayer.multiplayer_peer = peer
+    $tempo_client.visible = 1
+    $tempo_client.text = "Tempo:" + str(floori(tempo / 60.0)) + ":" + str(tempo % 60)
 
 
 func add_player(id: int, color: int, user_name_: String):
@@ -72,6 +76,10 @@ func _process(_delta):
 @rpc("call_local")
 func carregar():
   add_sibling(load("res://zero.tscn").instantiate())
+  $"../zero/game_timer".start(tempo)
+  $iniciando.visible = 0
+  $cancelar.visible = 0
+  $iniciar.visible = 1
 
 
 @rpc("call_local")
@@ -86,7 +94,27 @@ func cancelar():
   $timer.stop()
 
 
+func time_text():
+  var text_0 = $tempo_host/minutes_edit.text
+  var text_1 = $tempo_host/seconds_edit.text
+  for i in text_0:
+    if i not in "0123456789":
+      text_0 = text_0.replace(i, "")
+  if len(text_0) == 0:
+    text_0 = $tempo_host/minutes_edit.placeholder_text
+  for i in text_1:
+    if i not in "0123456789":
+      text_1 = text_1.replace(i, "")
+  if len(text_1) == 0:
+    text_1 = $tempo_host/seconds_edit.placeholder_text # O padrão é 630 segundos
+  tempo = int(text_0) * 60 + int(text_1)
+  $tempo_host/minutes_edit.text = str(floori(tempo / 60.0))
+  $tempo_host/seconds_edit.text = str(tempo % 60)
+  update_time.rpc(tempo)
+
+
 func _on_iniciar_pressed():
+  time_text()
   iniciar.rpc()
   $iniciar.visible = 0
   $cancelar.visible = 1
@@ -98,5 +126,30 @@ func _on_cancelar_pressed():
   $cancelar.visible = 0
 
 
+@rpc("call_remote")
+# É importante uma chamada local para que ao clicar
+# o botão 'Iniciar' todos os jogadores estejam atualizados
+func update_time(time: int):
+  tempo = time
+  if floori(tempo / 60.0) >= 10:
+    if tempo % 60 >= 10:
+      $tempo_client.text = "Tempo: " + str(floori(tempo / 60.0)) + ":" + str(tempo % 60)
+    elif tempo % 60 < 10:
+      $tempo_client.text = "Tempo: " + str(floori(tempo / 60.0)) + ":0" + str(tempo % 60)
+  elif floori(tempo / 60.0) < 10:
+    if tempo % 60 >= 10:
+      $tempo_client.text = "Tempo: 0" + str(floori(tempo / 60.0)) + ":" + str(tempo % 60)
+    elif tempo % 60 < 10:
+      $tempo_client.text = "Tempo: 0" + str(floori(tempo / 60.0)) + ":0" + str(tempo % 60)
+
+
 func _on_timer_timeout():
   carregar()
+
+
+func _on_minutes_edit_text_submitted(_new_text):
+  time_text()
+
+
+func _on_seconds_edit_text_submitted(_new_text):
+  time_text()

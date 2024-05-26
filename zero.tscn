@@ -205,6 +205,12 @@ func _on_timer_30_timeout():
 
 func _on_timer_31_timeout():
   spawnpoints_used[31] = false
+
+
+func _on_game_timer_timeout():
+  for i in get_children():
+    if i is CharacterBody2D:
+      i.terminar()
 "
 
 [node name="zero" type="Node2D"]
@@ -345,6 +351,10 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
+[node name="game_timer" type="Timer" parent="."]
+wait_time = 360.0
+one_shot = true
+
 [connection signal="timeout" from="spawnpoints/timer0" to="." method="_on_timer_0_timeout"]
 [connection signal="timeout" from="spawnpoints/timer1" to="." method="_on_timer_1_timeout"]
 [connection signal="timeout" from="spawnpoints/timer2" to="." method="_on_timer_2_timeout"]
@@ -377,3 +387,4 @@ one_shot = true
 [connection signal="timeout" from="spawnpoints/timer29" to="." method="_on_timer_29_timeout"]
 [connection signal="timeout" from="spawnpoints/timer30" to="." method="_on_timer_30_timeout"]
 [connection signal="timeout" from="spawnpoints/timer31" to="." method="_on_timer_31_timeout"]
+[connection signal="timeout" from="game_timer" to="." method="_on_game_timer_timeout"]
