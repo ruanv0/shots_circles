@@ -79,7 +79,7 @@ func _on_area_2d_2_body_entered(body):
 
 func _on_area_2d_3_body_entered(body):
   if "player" in body.name and $"..".name != body.name and is_multiplayer_authority() and visible:
-    body.hurt.rpc()
+    body.hurt.rpc($"../".name)
     parar.rpc()
 
 

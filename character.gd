@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 var speed = 21000
 var balas_usadas = [false, false, false]
+var last_attack = ""
 
 
 func preparar(cor, user_name):
@@ -97,11 +98,18 @@ func update_data(authority_position: Vector2, arma_visibility: bool, arma_rotati
 
 
 @rpc("call_local", "any_peer")
-func hurt():
+func hurt(attacker_name: String):
+  last_attack = attacker_name
   $saude.value -= 1
   $timer1.start()
   if $saude.value == 0:
     if is_multiplayer_authority():
+      count_kill.rpc(last_attack)
+      for i in range(0, len($"../".kills.values())):
+        $players_list.add_item($"../".peer_names[i])
+        $kills_list.add_item(str($"../".kills.values()[i]))
+      $players_list.visible = 1
+      $kills_list.visible = 1
       $fundo.visible = 1
       $renascer.visible = 1
       $renascer/timer.start()
@@ -114,6 +122,11 @@ func hurt():
     $arma.visible = 0
     $saude.visible = 0
     $name.visible = 0
+
+
+@rpc("call_local")
+func count_kill(last_attack_: String):
+  $"../".kills[last_attack_] += 1
 
 
 func _on_timer_0_timeout():

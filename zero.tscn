@@ -28,6 +28,7 @@ var host
 var connected_peer_ids
 var peer_colors
 var peer_names
+var kills = {}
 
 
 func spawn_point():
@@ -55,6 +56,7 @@ func add_player(id: int, position_: Vector2, color: int, user_name_: String):
   player.name = \"player\" + str(id)
   player.set_meta(\"cor\", color)
   player.set_meta(\"user_name\", user_name_)
+  kills[\"player\" + str(id)] = 0
   add_child(player)
   get_node(\"player\" + str(id)).global_position = position_
 

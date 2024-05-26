@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://multiplayer_menu.gd" id="1_2cgnd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o084w"]
-bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+bg_color = Color(0, 0, 0, 1)
 border_width_left = 20
 border_width_top = 20
 border_width_right = 20
@@ -73,6 +73,12 @@ offset_left = 740.0
 offset_top = 400.0
 offset_right = 1140.0
 offset_bottom = 605.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 120
 theme_override_styles/normal = SubResource("StyleBoxFlat_o084w")
 theme_override_styles/hover = SubResource("StyleBoxFlat_620en")
@@ -97,6 +103,12 @@ offset_left = 686.0
 offset_top = 402.0
 offset_right = 1231.0
 offset_bottom = 607.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 120
 theme_override_styles/normal = SubResource("StyleBoxFlat_o084w")
 theme_override_styles/hover = SubResource("StyleBoxFlat_620en")
@@ -124,7 +136,7 @@ offset_top = 96.0
 offset_right = 1066.0
 offset_bottom = 151.0
 theme_override_font_sizes/font_size = 40
-text = "Modo: Cada um por si"
+text = "Modo: Contra todos"
 
 [connection signal="pressed" from="iniciar" to="." method="_on_iniciar_pressed"]
 [connection signal="pressed" from="cancelar" to="." method="_on_cancelar_pressed"]
