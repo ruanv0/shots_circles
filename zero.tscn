@@ -25,9 +25,9 @@ var spawnpoints_used = [false, false, false, false,
                         false, false, false, false]
 var host
 @export var player_scene: PackedScene
-var connected_peer_ids = []
-var peer_colors = []
-var peer_names = []
+var connected_peer_ids
+var peer_colors
+var peer_names
 
 
 func spawn_point():
@@ -39,31 +39,22 @@ func spawn_point():
 
 func _ready():
   host = $\"../hub\".host
-  $\"../hub\".queue_free()
+  $\"../multiplayer_menu\".visible = 0
+  connected_peer_ids = $\"../multiplayer_menu\".connected_peer_ids
+  peer_colors = $\"../multiplayer_menu\".peer_colors
+  peer_names = $\"../multiplayer_menu\".peer_names
   if host:
-    var peer = ENetMultiplayerPeer.new()
-    peer.create_server(54822)
-    multiplayer.multiplayer_peer = peer
-    add_player(1, spawn_point(), player_info.cor, player_info.user_name)
-    multiplayer.peer_connected.connect(
-      func(new_peer_id):
-        add_previously_connected_players.rpc_id(new_peer_id, connected_peer_ids, players_positions(), peer_colors, peer_names)
-        add_myself.rpc_id(new_peer_id, new_peer_id, spawn_point())
-    )
-  elif not host:
-    var peer = ENetMultiplayerPeer.new()
-    peer.create_client(\"127.0.0.1\", 54822)
-    multiplayer.multiplayer_peer = peer
+    for i in range(0, len(connected_peer_ids)):
+      add_player.rpc(connected_peer_ids[i], spawn_point(),
+                     peer_colors[i], peer_names[i])
 
 
+@rpc(\"call_local\")
 func add_player(id: int, position_: Vector2, color: int, user_name_: String):
   var player = player_scene.instantiate()
   player.name = \"player\" + str(id)
   player.set_meta(\"cor\", color)
   player.set_meta(\"user_name\", user_name_)
-  connected_peer_ids.append(id)
-  peer_colors.append(color)
-  peer_names.append(user_name_)
   add_child(player)
   get_node(\"player\" + str(id)).global_position = position_
 
@@ -74,22 +65,6 @@ func players_positions():
     if i is CharacterBody2D:
       players_positions_.append(i.global_position)
   return players_positions_
-
-
-@rpc
-func add_myself(id: int, position_: Vector2):
-  add_newly_connected_player.rpc(id, position_, player_info.cor, player_info.user_name)
-
-
-@rpc(\"call_local\", \"any_peer\")
-func add_newly_connected_player(id: int, position_: Vector2, color: int, user_name_):
-  add_player(id, position_, color, user_name_)
-
-
-@rpc
-func add_previously_connected_players(peer_ids_: Array, positions: Array, colors: Array, names_: Array):
-  for i in range(0, len(peer_ids_)):
-    add_player(peer_ids_[i], positions[i], colors[i], names_[i])
 
 
 func _on_timer_0_timeout():

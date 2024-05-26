@@ -102,13 +102,18 @@ func hurt():
   $timer1.start()
   if $saude.value == 0:
     if is_multiplayer_authority():
-      $fundo.visible = true
-      $renascer.visible = true
+      $fundo.visible = 1
+      $renascer.visible = 1
       $renascer/timer.start()
-    $circulo.visible = false
-    $arma.visible = false
-    $saude.visible = false
-    $name.visible = false
+      $camera.zoom = Vector2(0.5, 0.5)
+      $joystick_atirar.visible = 0
+      $joystick_andar.position = Vector2(-220, 694)
+      $joystick_andar.scale = Vector2(1.4, 1.4)
+    $CollisionShape2D.set_deferred("disabled", 1)
+    $circulo.visible = 0
+    $arma.visible = 0
+    $saude.visible = 0
+    $name.visible = 0
 
 
 func _on_timer_0_timeout():

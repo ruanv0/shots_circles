@@ -14,12 +14,12 @@ func _ready():
 
 func _on_host_pressed():
   host = true
-  call_deferred("add_sibling", load("res://zero.tscn").instantiate())
+  call_deferred("add_sibling", load("res://multiplayer_menu.tscn").instantiate())
 
 
 func _on_join_pressed():
   host = false
-  call_deferred("add_sibling", load("res://zero.tscn").instantiate())
+  call_deferred("add_sibling", load("res://multiplayer_menu.tscn").instantiate())
 
 
 func _input(event):

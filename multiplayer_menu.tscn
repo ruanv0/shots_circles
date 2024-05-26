@@ -1,0 +1,131 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvhwxhu7xcdm"]
+
+[ext_resource type="Script" path="res://multiplayer_menu.gd" id="1_2cgnd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o084w"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_620en"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3iv6q"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tujtg"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+anti_aliasing = false
+
+[node name="multiplayer_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2cgnd")
+
+[node name="names_list" type="ItemList" parent="."]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 34.0
+offset_right = 637.0
+offset_bottom = 693.0
+theme_override_font_sizes/font_size = 50
+
+[node name="numero_jogadores" type="Label" parent="."]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 44.0
+offset_right = 1108.0
+offset_bottom = 99.0
+theme_override_font_sizes/font_size = 40
+text = "Número de jogadores: 1"
+
+[node name="iniciar" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 740.0
+offset_top = 400.0
+offset_right = 1140.0
+offset_bottom = 605.0
+theme_override_font_sizes/font_size = 120
+theme_override_styles/normal = SubResource("StyleBoxFlat_o084w")
+theme_override_styles/hover = SubResource("StyleBoxFlat_620en")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3iv6q")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tujtg")
+text = "Iniciar"
+
+[node name="iniciando" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 660.0
+offset_top = 626.0
+offset_right = 1164.0
+offset_bottom = 681.0
+theme_override_font_sizes/font_size = 40
+text = "Iniciando em x segundos..."
+
+[node name="cancelar" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 686.0
+offset_top = 402.0
+offset_right = 1231.0
+offset_bottom = 607.0
+theme_override_font_sizes/font_size = 120
+theme_override_styles/normal = SubResource("StyleBoxFlat_o084w")
+theme_override_styles/hover = SubResource("StyleBoxFlat_620en")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3iv6q")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tujtg")
+text = "Cancelar"
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="mapa" type="Label" parent="."]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 148.0
+offset_right = 862.0
+offset_bottom = 203.0
+theme_override_font_sizes/font_size = 40
+text = "Mapa: zero"
+
+[node name="modo" type="Label" parent="."]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 96.0
+offset_right = 1066.0
+offset_bottom = 151.0
+theme_override_font_sizes/font_size = 40
+text = "Modo: Cada um por si"
+
+[connection signal="pressed" from="iniciar" to="." method="_on_iniciar_pressed"]
+[connection signal="pressed" from="cancelar" to="." method="_on_cancelar_pressed"]
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

@@ -28,20 +28,34 @@ func _process(_delta):
     text = \"Você reaparecerá em \" + str(floor($timer.time_left)) + \" segundos.\"
 
 
-@rpc(\"call_local\")
-func reviver():
-  $\"../circulo\".visible = true
-  $\"../arma\".visible = true
+@rpc(\"call_local\", \"any_peer\")
+func reviver(position_: Vector2):
+  $\"../circulo\".visible = 1
   $\"../saude\".value = $\"../saude\".max_value
-  $\"../saude\".visible = true
-  $\"../name\".visible = true
+  $\"../saude\".visible = 1
+  $\"../name\".visible = 1
+  $\"../CollisionShape2D\".set_deferred(\"disabled\", 0)
+  if is_multiplayer_authority():
+    $\"../camera\".zoom = Vector2(1, 1)
+    $\"../joystick_atirar\".visible = 1
+    $\"../joystick_andar\".scale = Vector2(0.7, 0.7)
+    $\"../joystick_andar\".position = Vector2(210, 527)
+    $\"..\".global_position = position_
+
+
+@rpc
+func reviver_():
+  reviver.rpc($\"../..\".spawn_point())
 
 
 func _on_timer_timeout():
-  visible = false
-  $\"../fundo\".visible = false
-  reviver.rpc()
-  
+  visible = 0
+  $\"../fundo\".visible = 0
+  if multiplayer.get_unique_id() != 1:
+    reviver_.rpc_id(1)
+  elif multiplayer.get_unique_id() == 1:
+    reviver_()
+
 "
 
 [node name="character" type="CharacterBody2D"]
@@ -67,13 +81,11 @@ position = Vector2(640, 360)
 shape = SubResource("CircleShape2D_hidji")
 
 [node name="joystick_atirar" parent="." instance=ExtResource("5_xxma2")]
-visible = false
 z_index = 1
 position = Vector2(1048, 508)
 scale = Vector2(0.7, 0.7)
 
 [node name="joystick_andar" parent="." instance=ExtResource("3_ul7lt")]
-visible = false
 z_index = 1
 position = Vector2(210, 527)
 scale = Vector2(0.7, 0.7)
@@ -124,18 +136,19 @@ text = "teste"
 
 [node name="fundo" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(181, 93)
-scale = Vector2(920, 520)
+z_index = 1
+position = Vector2(-502, -232)
+scale = Vector2(2305, 1189)
 texture = ExtResource("9_a0dv3")
 centered = false
 
 [node name="renascer" type="Label" parent="."]
 visible = false
-offset_left = 215.0
-offset_top = 521.0
-offset_right = 1064.0
-offset_bottom = 590.0
-theme_override_font_sizes/font_size = 50
+offset_left = -212.0
+offset_top = 748.0
+offset_right = 1479.0
+offset_bottom = 885.0
+theme_override_font_sizes/font_size = 100
 text = "Você irá reaparecer em x segundos"
 script = SubResource("GDScript_0l0ii")
 
