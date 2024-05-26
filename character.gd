@@ -105,9 +105,12 @@ func hurt(attacker_name: String):
   if $saude.value == 0:
     if is_multiplayer_authority():
       count_kill.rpc(last_attack)
-      for i in range(0, len($"../".kills.values())):
-        $players_list.add_item($"../".peer_names[i])
-        $kills_list.add_item(str($"../".kills.values()[i]))
+      $players_list.clear()
+      $kills_list.clear()
+      $"../".sort_kills()
+      for i in $"../".kills:
+        $players_list.add_item(i[0])
+        $kills_list.add_item(str(i[1]))
       $players_list.visible = 1
       $kills_list.visible = 1
       $fundo.visible = 1
@@ -126,7 +129,10 @@ func hurt(attacker_name: String):
 
 @rpc("call_local")
 func count_kill(last_attack_: String):
-  $"../".kills[last_attack_] += 1
+  for i in range(0, len($"../".kills)):
+    if $"../".kills[i][2] == last_attack_:
+      $"../".kills[i][1] += 1
+      break
 
 
 func _on_timer_0_timeout():

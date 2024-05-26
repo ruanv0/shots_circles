@@ -28,6 +28,11 @@ func _ready():
 
 
 func add_player(id: int, color: int, user_name_: String):
+  if user_name_ in peer_names:
+    for i in range(0, 33):
+      if user_name_ + str(i) not in peer_names:
+        user_name_ = user_name_ + str(i)
+        break
   $names_list.add_item(user_name_)
   connected_peer_ids.append(id)
   peer_colors.append(color)
