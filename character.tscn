@@ -68,11 +68,13 @@ shape = SubResource("CircleShape2D_hidji")
 
 [node name="joystick_atirar" parent="." instance=ExtResource("5_xxma2")]
 visible = false
+z_index = 1
 position = Vector2(1048, 508)
 scale = Vector2(0.7, 0.7)
 
 [node name="joystick_andar" parent="." instance=ExtResource("3_ul7lt")]
 visible = false
+z_index = 1
 position = Vector2(210, 527)
 scale = Vector2(0.7, 0.7)
 

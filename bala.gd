@@ -37,7 +37,7 @@ func parar():
 
 
 func _physics_process(_delta):
-  if is_multiplayer_authority():
+  if is_multiplayer_authority() and not (velocity.x == 0 and velocity.y == 0):
     update_data.rpc(visible, global_position)
     move_and_slide()
 

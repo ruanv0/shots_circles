@@ -111,7 +111,6 @@ func hurt():
     $name.visible = false
 
 
-@rpc("call_local", "authority")
 func _on_timer_0_timeout():
   # O $timer0 é o tempo entre as adições de saúde
   # O $timer1 é o tempo após um tiro que tardaria as adições de saúde
