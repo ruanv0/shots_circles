@@ -2,19 +2,12 @@
 
 [ext_resource type="Script" path="res://multiplayer_menu.gd" id="1_2cgnd"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o084w"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
-border_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tujtg"]
+bg_color = Color(0.231373, 0.231373, 0.231373, 1)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
-expand_margin_left = 20.0
-expand_margin_right = 20.0
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_620en"]
@@ -32,12 +25,19 @@ corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tujtg"]
-bg_color = Color(0.231373, 0.231373, 0.231373, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o084w"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
+expand_margin_left = 20.0
+expand_margin_right = 20.0
 anti_aliasing = false
 
 [node name="multiplayer_menu" type="Control"]
@@ -73,17 +73,17 @@ offset_left = 780.0
 offset_top = 420.0
 offset_right = 1121.0
 offset_bottom = 597.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 100
-theme_override_styles/normal = SubResource("StyleBoxFlat_o084w")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tujtg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_620en")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3iv6q")
-theme_override_styles/focus = SubResource("StyleBoxFlat_tujtg")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o084w")
 text = "Iniciar"
 
 [node name="iniciando" type="Label" parent="."]
@@ -103,17 +103,17 @@ offset_left = 720.0
 offset_top = 420.0
 offset_right = 1181.0
 offset_bottom = 597.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 100
-theme_override_styles/normal = SubResource("StyleBoxFlat_o084w")
+theme_override_styles/focus = SubResource("StyleBoxFlat_tujtg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_620en")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3iv6q")
-theme_override_styles/focus = SubResource("StyleBoxFlat_tujtg")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o084w")
 text = "Cancelar"
 
 [node name="timer" type="Timer" parent="."]

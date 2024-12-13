@@ -1,20 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://3ow5m0minlt2"]
+[gd_scene load_steps=13 format=3 uid="uid://3ow5m0minlt2"]
 
 [ext_resource type="Script" path="res://hub.gd" id="1_p106a"]
 [ext_resource type="Texture2D" uid="uid://cgdn7qj8ykm6" path="res://avatar_normal.png" id="2_kt6ty"]
+[ext_resource type="Script" path="res://server_browser.gd" id="3_dvvyh"]
+[ext_resource type="PackedScene" uid="uid://dvhwxhu7xcdm" path="res://multiplayer_menu.tscn" id="4_fwqlr"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_va5qo"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
-border_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pudd0"]
+bg_color = Color(0, 0, 0, 0)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
-anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlpum"]
 bg_color = Color(0.230315, 0.230315, 0.230315, 1)
@@ -34,14 +30,7 @@ corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pudd0"]
-bg_color = Color(0, 0, 0, 0)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dil4m"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_va5qo"]
 bg_color = Color(0, 0, 0, 1)
 border_width_left = 20
 border_width_top = 20
@@ -53,6 +42,9 @@ corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdmn2"]
+bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmjeq"]
 bg_color = Color(0.231373, 0.231373, 0.231373, 1)
@@ -71,8 +63,18 @@ corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdmn2"]
-bg_color = Color(0, 0, 0, 0)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dil4m"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 20
+border_width_top = 20
+border_width_right = 20
+border_width_bottom = 20
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+anti_aliasing = false
 
 [node name="hub" type="Node2D"]
 script = ExtResource("1_p106a")
@@ -82,17 +84,17 @@ offset_left = 420.0
 offset_top = 149.0
 offset_right = 820.0
 offset_bottom = 359.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 120
-theme_override_styles/normal = SubResource("StyleBoxFlat_va5qo")
+theme_override_styles/focus = SubResource("StyleBoxFlat_pudd0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_jlpum")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_0w8qk")
-theme_override_styles/focus = SubResource("StyleBoxFlat_pudd0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_va5qo")
 text = "Host"
 
 [node name="join" type="Button" parent="."]
@@ -100,17 +102,17 @@ offset_left = 432.0
 offset_top = 376.0
 offset_right = 832.0
 offset_bottom = 586.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 120
-theme_override_styles/normal = SubResource("StyleBoxFlat_dil4m")
+theme_override_styles/focus = SubResource("StyleBoxFlat_qdmn2")
 theme_override_styles/hover = SubResource("StyleBoxFlat_gmjeq")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_kynir")
-theme_override_styles/focus = SubResource("StyleBoxFlat_qdmn2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dil4m")
 text = "Join"
 
 [node name="avatar" type="Sprite2D" parent="."]
@@ -127,5 +129,27 @@ offset_bottom = 144.0
 theme_override_font_sizes/font_size = 50
 text = "Avatar"
 
+[node name="server_browser" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_dvvyh")
+
+[node name="broadcast_timer" type="Timer" parent="server_browser"]
+
+[node name="Label" type="Label" parent="server_browser"]
+layout_mode = 0
+offset_left = 382.0
+offset_top = 6.0
+offset_right = 422.0
+offset_bottom = 29.0
+theme_override_font_sizes/font_size = 40
+text = "Bound to listen port: ?"
+
+[node name="multiplayer_menu" parent="." instance=ExtResource("4_fwqlr")]
+visible = false
+
 [connection signal="pressed" from="host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="join" to="." method="_on_join_pressed"]
+[connection signal="timeout" from="server_browser/broadcast_timer" to="server_browser" method="_on_broadcast_timer_timeout"]
