@@ -12,7 +12,7 @@ func _ready():
 	$join.position.x = (get_viewport_rect().size.x - 500) / 2
 	$join.position.y = ((get_viewport_rect().size.y - 250) * 1.5) / 2
 	for ip in IP.get_local_addresses():
-		if ip != "127.0.0.1" and ip.count(".") == 3:
+		if ip.count(".") == 3 and ip != "127.0.0.1":
 			ip_address = ip
 			break
 	$your_ip_address.text = ip_address
