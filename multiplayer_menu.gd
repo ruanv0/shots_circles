@@ -136,7 +136,7 @@ func _on_cancelar_pressed():
 	$cancelar.visible = false
 
 
-@rpc("call_remote")
+@rpc("call_local")
 # É importante uma chamada local para que ao clicar
 # o botão 'Iniciar' todos os jogadores estejam atualizados
 func update_information(time: int):

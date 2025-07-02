@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://cwecqqntqbhyj"]
+[gd_scene load_steps=23 format=3 uid="uid://cwecqqntqbhyj"]
 
 [ext_resource type="Texture2D" uid="uid://k6wh64eb845r" path="res://circulos/circulo_amarelo.png" id="1_88vfk"]
 [ext_resource type="Script" uid="uid://ccoqqvsunkfv0" path="res://avatar.gd" id="1_o0snk"]
+[ext_resource type="Theme" uid="uid://04ex0vg6beua" path="res://theme.tres" id="2_kavv8"]
 [ext_resource type="Texture2D" uid="uid://kbqsid8bndry" path="res://circulos/circulo_azul.png" id="2_lm1g0"]
 [ext_resource type="Texture2D" uid="uid://blrbs1uj8sj3i" path="res://back_button.png" id="2_vpdvi"]
 [ext_resource type="Texture2D" uid="uid://bxp7r0vvcdbjh" path="res://circulos/circulo_banana.png" id="3_wkm6l"]
@@ -30,8 +31,9 @@ offset_left = 645.0
 offset_top = 58.0
 offset_right = 1212.0
 offset_bottom = 121.0
+theme = ExtResource("2_kavv8")
 theme_override_font_sizes/font_size = 40
-placeholder_text = "Escreva seu nome ou apelido"
+placeholder_text = "Escreva seu nome"
 max_length = 12
 
 [node name="back" type="Sprite2D" parent="."]
@@ -49,6 +51,7 @@ offset_left = 500.0
 offset_top = 60.0
 offset_right = 627.0
 offset_bottom = 115.0
+theme = ExtResource("2_kavv8")
 theme_override_font_sizes/font_size = 40
 text = "Nome:"
 
@@ -57,6 +60,7 @@ offset_left = 150.0
 offset_top = 25.0
 offset_right = 514.0
 offset_bottom = 148.0
+theme = ExtResource("2_kavv8")
 theme_override_font_sizes/font_size = 80
 text = "Avatar"
 
@@ -65,6 +69,7 @@ offset_left = 50.0
 offset_top = 140.0
 offset_right = 375.0
 offset_bottom = 195.0
+theme = ExtResource("2_kavv8")
 theme_override_font_sizes/font_size = 40
 text = "Escolha a sua cor"
 
@@ -84,7 +89,7 @@ offset_left = 147.0
 offset_top = 218.0
 offset_right = 309.0
 offset_bottom = 273.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Amarelo"
 
 [node name="azul_" type="Sprite2D" parent="."]
@@ -103,7 +108,7 @@ offset_left = 155.0
 offset_top = 317.0
 offset_right = 236.0
 offset_bottom = 372.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Azul"
 
 [node name="banana_" type="Sprite2D" parent="."]
@@ -122,7 +127,7 @@ offset_left = 147.0
 offset_top = 400.0
 offset_right = 292.0
 offset_bottom = 455.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Banana"
 
 [node name="branco_" type="Sprite2D" parent="."]
@@ -141,7 +146,7 @@ offset_left = 150.0
 offset_top = 481.0
 offset_right = 285.0
 offset_bottom = 536.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Branco"
 
 [node name="caqui_" type="Sprite2D" parent="."]
@@ -160,7 +165,7 @@ offset_left = 148.0
 offset_top = 565.0
 offset_right = 257.0
 offset_bottom = 620.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Cáqui"
 
 [node name="ciano_" type="Sprite2D" parent="."]
@@ -179,7 +184,7 @@ offset_left = 476.0
 offset_top = 229.0
 offset_right = 584.0
 offset_bottom = 284.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Ciano"
 
 [node name="cinza_" type="Sprite2D" parent="."]
@@ -198,7 +203,7 @@ offset_left = 470.0
 offset_top = 319.0
 offset_right = 573.0
 offset_bottom = 374.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Cinza"
 
 [node name="coral_" type="Sprite2D" parent="."]
@@ -217,7 +222,7 @@ offset_left = 469.0
 offset_top = 401.0
 offset_right = 569.0
 offset_bottom = 456.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Coral"
 
 [node name="laranja_" type="Sprite2D" parent="."]
@@ -236,7 +241,7 @@ offset_left = 463.0
 offset_top = 479.0
 offset_right = 607.0
 offset_bottom = 534.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Laranja"
 
 [node name="limao_" type="Sprite2D" parent="."]
@@ -255,7 +260,7 @@ offset_left = 460.0
 offset_top = 560.0
 offset_right = 578.0
 offset_bottom = 615.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Limão"
 
 [node name="marrom_" type="Sprite2D" parent="."]
@@ -274,7 +279,7 @@ offset_left = 747.0
 offset_top = 313.0
 offset_right = 903.0
 offset_bottom = 368.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Marrom"
 
 [node name="preto_" type="Sprite2D" parent="."]
@@ -293,7 +298,7 @@ offset_left = 745.0
 offset_top = 225.0
 offset_right = 850.0
 offset_bottom = 280.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Preto"
 
 [node name="rosaclaro_" type="Sprite2D" parent="."]
@@ -312,7 +317,7 @@ offset_left = 741.0
 offset_top = 401.0
 offset_right = 938.0
 offset_bottom = 456.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Rosa claro"
 
 [node name="rosaescuro_" type="Sprite2D" parent="."]
@@ -331,7 +336,7 @@ offset_left = 740.0
 offset_top = 487.0
 offset_right = 970.0
 offset_bottom = 542.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Rosa escuro"
 
 [node name="roxo_" type="Sprite2D" parent="."]
@@ -350,7 +355,7 @@ offset_left = 740.0
 offset_top = 563.0
 offset_right = 836.0
 offset_bottom = 618.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Roxo"
 
 [node name="verde_" type="Sprite2D" parent="."]
@@ -369,7 +374,7 @@ offset_left = 1067.0
 offset_top = 241.0
 offset_right = 1180.0
 offset_bottom = 296.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Verde"
 
 [node name="vermelho_" type="Sprite2D" parent="."]
@@ -388,7 +393,7 @@ offset_left = 1062.0
 offset_top = 320.0
 offset_right = 1248.0
 offset_bottom = 375.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Vermelho"
 
 [node name="vinho_" type="Sprite2D" parent="."]
@@ -407,7 +412,7 @@ offset_left = 1059.0
 offset_top = 411.0
 offset_right = 1169.0
 offset_bottom = 466.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_kavv8")
 text = "Vinho"
 
 [connection signal="text_changed" from="name_text" to="." method="_on_name_text_text_changed"]

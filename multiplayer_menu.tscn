@@ -1,44 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvhwxhu7xcdm"]
+[gd_scene load_steps=3 format=3 uid="uid://dvhwxhu7xcdm"]
 
 [ext_resource type="Script" uid="uid://dv4sp3tc1sdhn" path="res://multiplayer_menu.gd" id="1_2cgnd"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tujtg"]
-bg_color = Color(0.231373, 0.231373, 0.231373, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_620en"]
-bg_color = Color(0.231373, 0.231373, 0.231373, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3iv6q"]
-bg_color = Color(0.231373, 0.231373, 0.231373, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o084w"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-expand_margin_left = 20.0
-expand_margin_right = 20.0
-anti_aliasing = false
+[ext_resource type="Theme" uid="uid://04ex0vg6beua" path="res://theme.tres" id="2_326qw"]
 
 [node name="multiplayer_menu" type="Control"]
 layout_mode = 3
@@ -55,7 +18,7 @@ offset_left = 29.0
 offset_top = 34.0
 offset_right = 637.0
 offset_bottom = 693.0
-theme_override_font_sizes/font_size = 50
+theme = ExtResource("2_326qw")
 
 [node name="informacoes" type="Label" parent="."]
 layout_mode = 0
@@ -63,7 +26,7 @@ offset_left = 650.0
 offset_top = 44.0
 offset_right = 690.0
 offset_bottom = 67.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_326qw")
 text = "Número de jogadores: 1
 Modo: Contra todos
 Mapa: zero
@@ -76,19 +39,9 @@ visible = false
 layout_mode = 0
 offset_left = 670.0
 offset_top = 550.0
-offset_right = 810.0
+offset_right = 830.0
 offset_bottom = 625.0
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxFlat_tujtg")
-theme_override_styles/hover = SubResource("StyleBoxFlat_620en")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3iv6q")
-theme_override_styles/normal = SubResource("StyleBoxFlat_o084w")
+theme = ExtResource("2_326qw")
 text = "Iniciar"
 
 [node name="iniciando" type="Label" parent="."]
@@ -98,7 +51,7 @@ offset_left = 660.0
 offset_top = 626.0
 offset_right = 1164.0
 offset_bottom = 681.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_326qw")
 text = "Iniciando em x segundos..."
 
 [node name="cancelar" type="Button" parent="."]
@@ -108,17 +61,7 @@ offset_left = 670.0
 offset_top = 550.0
 offset_right = 858.0
 offset_bottom = 625.0
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 40
-theme_override_styles/focus = SubResource("StyleBoxFlat_tujtg")
-theme_override_styles/hover = SubResource("StyleBoxFlat_620en")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3iv6q")
-theme_override_styles/normal = SubResource("StyleBoxFlat_o084w")
+theme = ExtResource("2_326qw")
 text = "Cancelar"
 
 [node name="timer" type="Timer" parent="."]
@@ -132,7 +75,7 @@ offset_left = 650.0
 offset_top = 371.0
 offset_right = 783.0
 offset_bottom = 426.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_326qw")
 text = "Tempo"
 
 [node name="minutos" type="Label" parent="tempo_host"]
@@ -141,7 +84,7 @@ offset_left = 170.0
 offset_top = 3.0
 offset_right = 338.0
 offset_bottom = 58.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_326qw")
 text = "Minutos:"
 
 [node name="minutes_edit" type="LineEdit" parent="tempo_host"]
@@ -150,7 +93,7 @@ offset_left = 170.0
 offset_top = 68.0
 offset_right = 362.0
 offset_bottom = 145.0
-theme_override_font_sizes/font_size = 50
+theme = ExtResource("2_326qw")
 text = "5"
 max_length = 2
 
@@ -160,7 +103,7 @@ offset_left = 384.0
 offset_top = 3.0
 offset_right = 580.0
 offset_bottom = 58.0
-theme_override_font_sizes/font_size = 40
+theme = ExtResource("2_326qw")
 text = "Segundos:"
 
 [node name="seconds_edit" type="LineEdit" parent="tempo_host"]
@@ -169,7 +112,7 @@ offset_left = 386.0
 offset_top = 68.0
 offset_right = 578.0
 offset_bottom = 145.0
-theme_override_font_sizes/font_size = 50
+theme = ExtResource("2_326qw")
 text = "0"
 max_length = 2
 
