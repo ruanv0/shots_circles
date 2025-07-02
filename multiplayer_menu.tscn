@@ -27,10 +27,10 @@ anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o084w"]
 bg_color = Color(0, 0, 0, 1)
-border_width_left = 20
-border_width_top = 20
-border_width_right = 20
-border_width_bottom = 20
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
 border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
@@ -57,29 +57,34 @@ offset_right = 637.0
 offset_bottom = 693.0
 theme_override_font_sizes/font_size = 50
 
-[node name="numero_jogadores" type="Label" parent="."]
+[node name="informacoes" type="Label" parent="."]
 layout_mode = 0
 offset_left = 650.0
 offset_top = 44.0
-offset_right = 1108.0
-offset_bottom = 99.0
+offset_right = 690.0
+offset_bottom = 67.0
 theme_override_font_sizes/font_size = 40
-text = "Número de jogadores: 1"
+text = "Número de jogadores: 1
+Modo: Contra todos
+Mapa: zero
+Tempo:
+Endereço do hospedeiro:
+192.168.100.x"
 
 [node name="iniciar" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 780.0
-offset_top = 420.0
-offset_right = 1121.0
-offset_bottom = 597.0
+offset_left = 670.0
+offset_top = 550.0
+offset_right = 810.0
+offset_bottom = 625.0
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 100
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = SubResource("StyleBoxFlat_tujtg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_620en")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3iv6q")
@@ -99,17 +104,17 @@ text = "Iniciando em x segundos..."
 [node name="cancelar" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 720.0
-offset_top = 420.0
-offset_right = 1181.0
-offset_bottom = 597.0
+offset_left = 670.0
+offset_top = 550.0
+offset_right = 858.0
+offset_bottom = 625.0
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 100
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
 theme_override_styles/focus = SubResource("StyleBoxFlat_tujtg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_620en")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3iv6q")
@@ -120,31 +125,13 @@ text = "Cancelar"
 wait_time = 5.0
 one_shot = true
 
-[node name="mapa" type="Label" parent="."]
-layout_mode = 0
-offset_left = 650.0
-offset_top = 148.0
-offset_right = 862.0
-offset_bottom = 203.0
-theme_override_font_sizes/font_size = 40
-text = "Mapa: zero"
-
-[node name="modo" type="Label" parent="."]
-layout_mode = 0
-offset_left = 650.0
-offset_top = 96.0
-offset_right = 1066.0
-offset_bottom = 151.0
-theme_override_font_sizes/font_size = 40
-text = "Modo: Contra todos"
-
 [node name="tempo_host" type="Label" parent="."]
 visible = false
 layout_mode = 0
 offset_left = 650.0
-offset_top = 252.0
+offset_top = 371.0
 offset_right = 783.0
-offset_bottom = 307.0
+offset_bottom = 426.0
 theme_override_font_sizes/font_size = 40
 text = "Tempo"
 
@@ -164,7 +151,7 @@ offset_top = 68.0
 offset_right = 362.0
 offset_bottom = 145.0
 theme_override_font_sizes/font_size = 50
-placeholder_text = "10"
+text = "5"
 max_length = 2
 
 [node name="segundos" type="Label" parent="tempo_host"]
@@ -183,21 +170,11 @@ offset_top = 68.0
 offset_right = 578.0
 offset_bottom = 145.0
 theme_override_font_sizes/font_size = 50
-placeholder_text = "30"
+text = "0"
 max_length = 2
-
-[node name="tempo_client" type="Label" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 650.0
-offset_top = 196.0
-offset_right = 804.0
-offset_bottom = 251.0
-theme_override_font_sizes/font_size = 40
-text = "Tempo: "
 
 [connection signal="pressed" from="iniciar" to="." method="_on_iniciar_pressed"]
 [connection signal="pressed" from="cancelar" to="." method="_on_cancelar_pressed"]
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
-[connection signal="text_submitted" from="tempo_host/minutes_edit" to="." method="_on_minutes_edit_text_submitted"]
-[connection signal="text_submitted" from="tempo_host/seconds_edit" to="." method="_on_seconds_edit_text_submitted"]
+[connection signal="text_changed" from="tempo_host/minutes_edit" to="." method="_on_minutes_edit_text_changed"]
+[connection signal="text_changed" from="tempo_host/seconds_edit" to="." method="_on_seconds_edit_text_changed"]

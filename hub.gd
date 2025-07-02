@@ -27,6 +27,8 @@ func _on_host_pressed():
 	$join.visible = false
 	$avatar.visible = false
 	$avatar_label.visible = false
+	$host_ip_address.visible = false
+	$your_ip_address.visible = false
 
 
 func _on_join_pressed():
@@ -36,6 +38,8 @@ func _on_join_pressed():
 	$join.visible = false
 	$avatar.visible = false
 	$avatar_label.visible = false
+	$host_ip_address.visible = false
+	$your_ip_address.visible = false
 
 
 func _input(event):

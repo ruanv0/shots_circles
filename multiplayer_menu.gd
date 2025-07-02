@@ -4,7 +4,7 @@ extends Control
 var connected_peer_ids = []
 var peer_colors = []
 var peer_names = []
-var tempo = 630
+var tempo = 300
 
 
 func _ready():
@@ -20,16 +20,16 @@ func host_game(is_host: bool) -> void:
 		multiplayer.peer_connected.connect(
 			func(new_peer_id):
 				add_previously_connected_players.rpc_id(new_peer_id, connected_peer_ids, peer_colors, peer_names)
-				add_myself.rpc_id(new_peer_id, new_peer_id)
+				add_myself.rpc_id(new_peer_id, new_peer_id, tempo)
 		)
 		$iniciar.visible = true
 		$tempo_host.visible = true
+		update_information(tempo)
 	elif not is_host:
 		var peer = ENetMultiplayerPeer.new()
 		peer.create_client($"../host_ip_address".text, 54822)
 		multiplayer.multiplayer_peer = peer
-		$tempo_client.visible = true
-		$tempo_client.text = "Tempo:" + str(floori(tempo / 60.0)) + ":" + str(tempo % 60)
+		update_information(tempo)
 
 
 func add_player(id: int, color: int, user_name_: String):
@@ -42,8 +42,7 @@ func add_player(id: int, color: int, user_name_: String):
 	connected_peer_ids.append(id)
 	peer_colors.append(color)
 	peer_names.append(user_name_)
-	$numero_jogadores.text = "Número de jogadores: " + str(len(peer_names))
-
+	update_information(tempo)
 
 func players_positions():
 	var players_positions_ = []
@@ -54,7 +53,8 @@ func players_positions():
 
 
 @rpc
-func add_myself(id: int):
+func add_myself(id: int, tempo_: int):
+	tempo = tempo_
 	add_newly_connected_player.rpc(id, player_info.cor, player_info.user_name)
 
 
@@ -98,22 +98,29 @@ func cancelar():
 
 
 func time_text():
-	var text_0 = $tempo_host/minutes_edit.text
-	var text_1 = $tempo_host/seconds_edit.text
-	for i in text_0:
-		if i not in "0123456789":
-			text_0 = text_0.replace(i, "")
-	if len(text_0) == 0:
-		text_0 = $tempo_host/minutes_edit.placeholder_text
-	for i in text_1:
-		if i not in "0123456789":
-			text_1 = text_1.replace(i, "")
-	if len(text_1) == 0:
-		text_1 = $tempo_host/seconds_edit.placeholder_text # O padrão é 630 segundos
-	tempo = int(text_0) * 60 + int(text_1)
-	$tempo_host/minutes_edit.text = str(floori(tempo / 60.0))
-	$tempo_host/seconds_edit.text = str(tempo % 60)
-	update_time.rpc(tempo)
+	var minutes = $tempo_host/minutes_edit.text
+	var seconds = $tempo_host/seconds_edit.text
+	for character in minutes:
+		if character not in "0123456789":
+			minutes = minutes.replace(character, "")
+	for character in seconds:
+		if character not in "0123456789":
+			seconds = seconds.replace(character, "")
+	if len(minutes) == 0:
+		if len(seconds) == 0:
+			tempo = 0
+		else:
+			tempo = int(seconds)
+	else:
+		if len(seconds) == 0:
+			tempo = int(minutes) * 60
+		else:
+			tempo = int(minutes) * 60 + int(seconds)
+	if $tempo_host/minutes_edit.text != minutes:
+		$tempo_host/minutes_edit.text = minutes
+	if $tempo_host/seconds_edit.text != seconds:
+		$tempo_host/seconds_edit.text = seconds
+	update_information.rpc(tempo)
 
 
 func _on_iniciar_pressed():
@@ -132,27 +139,27 @@ func _on_cancelar_pressed():
 @rpc("call_remote")
 # É importante uma chamada local para que ao clicar
 # o botão 'Iniciar' todos os jogadores estejam atualizados
-func update_time(time: int):
+func update_information(time: int):
 	tempo = time
 	if floori(tempo / 60.0) >= 10:
 		if tempo % 60 >= 10:
-			$tempo_client.text = "Tempo: " + str(floori(tempo / 60.0)) + ":" + str(tempo % 60)
+			$informacoes.text = "Número de jogadores: " + str(len(peer_names)) + "\nModo: Contra todos\nMapa: zero\nTempo: " + str(floori(tempo / 60.0)) + ":" + str(tempo % 60) + "\nEndereço do hospedeiro:\n" + $"..".ip_address
 		elif tempo % 60 < 10:
-			$tempo_client.text = "Tempo: " + str(floori(tempo / 60.0)) + ":0" + str(tempo % 60)
+			$informacoes.text = "Número de jogadores: " + str(len(peer_names)) + "\nModo: Contra todos\nMapa: zero\nTempo: " + str(floori(tempo / 60.0)) + ":0" + str(tempo % 60) + "\nEndereço do hospedeiro:\n" + $"..".ip_address
 	elif floori(tempo / 60.0) < 10:
 		if tempo % 60 >= 10:
-			$tempo_client.text = "Tempo: 0" + str(floori(tempo / 60.0)) + ":" + str(tempo % 60)
+			$informacoes.text = "Número de jogadores: " + str(len(peer_names)) + "\nModo: Contra todos\nMapa: zero\nTempo: 0" + str(floori(tempo / 60.0)) + ":" + str(tempo % 60) + "\nEndereço do hospedeiro:\n" + $"..".ip_address
 		elif tempo % 60 < 10:
-			$tempo_client.text = "Tempo: 0" + str(floori(tempo / 60.0)) + ":0" + str(tempo % 60)
+			$informacoes.text = "Número de jogadores: " + str(len(peer_names)) + "\nModo: Contra todos\nMapa: zero\nTempo: 0" + str(floori(tempo / 60.0)) + ":0" + str(tempo % 60) + "\nEndereço do hospedeiro:\n" + $"..".ip_address
 
 
 func _on_timer_timeout():
 	carregar()
 
 
-func _on_minutes_edit_text_submitted(_new_text):
+func _on_minutes_edit_text_changed(new_text: String) -> void:
 	time_text()
 
 
-func _on_seconds_edit_text_submitted(_new_text):
+func _on_seconds_edit_text_changed(new_text: String) -> void:
 	time_text()

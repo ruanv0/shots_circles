@@ -99,12 +99,13 @@ func _physics_process(delta):
 		andar(delta)
 		# Mover com a variável velocity
 		move_and_slide()
-		update_data.rpc(global_position, $arma.visible, $arma.rotation, $arma.position)
+		update_data.rpc(position, $arma.visible, $arma.rotation, $arma.position)
+		print(position)
 
 
 @rpc("call_remote", "unreliable")
 func update_data(authority_position: Vector2, arma_visibility: bool, arma_rotation: float, arma_position: Vector2):
-	global_position = authority_position
+	position = authority_position
 	$arma.visible = arma_visibility
 	$arma.rotation = arma_rotation
 	$arma.position = arma_position
