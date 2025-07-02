@@ -148,7 +148,6 @@ func count_kill(last_attack_: String):
 			break
 
 
-@rpc("call_local", "any_peer")
 func terminar():
 	$collision_shape.set_deferred("disabled", 1)
 	if is_multiplayer_authority():
@@ -178,10 +177,10 @@ func _on_timer_0_timeout():
 	$timer0.start()
 
 
-@rpc("call_local", "any_peer")
+@rpc("call_local")
 func terminar_():
-	$"../../multiplayer_menu".visible = 1
 	$"..".queue_free()
+	$"../../multiplayer_menu".visible = true
 
 
 func _on_finish_timer_timeout():

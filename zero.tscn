@@ -207,10 +207,15 @@ func _on_timer_31_timeout():
 	spawnpoints_used[31] = false
 
 
-func _on_game_timer_timeout():
+@rpc(\"call_local\", \"any_peer\")
+func finish_game():
 	for i in get_children():
 		if i is CharacterBody2D:
 			i.terminar()
+
+
+func _on_game_timer_timeout():
+	finish_game.rpc()
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6q2x6"]

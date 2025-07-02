@@ -1,8 +1,9 @@
 extends Node2D
 
 
-var host
 var avatar_pressed = -1
+var ip_address: String
+var host = false
 
 
 func _ready():
@@ -10,14 +11,18 @@ func _ready():
 	$host.position.y = ((get_viewport_rect().size.y - 250) * 0.5) / 2
 	$join.position.x = (get_viewport_rect().size.x - 500) / 2
 	$join.position.y = ((get_viewport_rect().size.y - 250) * 1.5) / 2
-	#$server_browser.setup_broadcast()
+	for ip in IP.get_local_addresses():
+		if ip != "127.0.0.1" and ip.count(".") == 3:
+			ip_address = ip
+			break
+	$your_ip_address.text = ip_address
+	$host_ip_address.text = ip_address.split(".")[0] + "." + ip_address.split(".")[1] + "." + ip_address.split(".")[2] + "."
 
 
 func _on_host_pressed():
-	host = true
 	$multiplayer_menu.visible = true
-	print($multiplayer_menu.visible)
-	$multiplayer_menu.host_game()
+	host = true
+	$multiplayer_menu.host_game(host)
 	$host.visible = false
 	$join.visible = false
 	$avatar.visible = false
@@ -25,9 +30,8 @@ func _on_host_pressed():
 
 
 func _on_join_pressed():
-	host = false
 	$multiplayer_menu.visible = true
-	$multiplayer_menu.host_game()
+	$multiplayer_menu.host_game(false)
 	$host.visible = false
 	$join.visible = false
 	$avatar.visible = false

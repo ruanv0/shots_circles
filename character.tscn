@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://k6wh64eb845r" path="res://circulos/circulo_amarelo.png" id="2_amlq5"]
 [ext_resource type="Texture2D" uid="uid://d0gke3r57dxpn" path="res://arma.png" id="2_sfomk"]
 [ext_resource type="PackedScene" uid="uid://conk6mjspvart" path="res://joystick_andar.tscn" id="3_ul7lt"]
-[ext_resource type="Script" path="res://character.gd" id="5_ip2cj"]
+[ext_resource type="Script" uid="uid://c5hjdvya0nbs5" path="res://character.gd" id="5_ip2cj"]
 [ext_resource type="PackedScene" uid="uid://0qv3nko0t55y" path="res://joystick_atirar.tscn" id="5_xxma2"]
 [ext_resource type="Texture2D" uid="uid://d3pr341msyngp" path="res://mira.png" id="6_asc0c"]
 [ext_resource type="PackedScene" uid="uid://capvk35y13reg" path="res://bala.tscn" id="7_vji8y"]
@@ -154,11 +154,11 @@ offset_left = -203.0
 offset_top = 120.0
 offset_right = 597.0
 offset_bottom = 720.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hovered_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_colors/guide_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hovered_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 80
 theme_override_styles/panel = SubResource("StyleBoxEmpty_pmwch")
 
@@ -168,11 +168,11 @@ offset_left = 610.0
 offset_top = 120.0
 offset_right = 1410.0
 offset_bottom = 720.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hovered_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_colors/guide_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hovered_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 80
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0r1ry")
 

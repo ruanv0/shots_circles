@@ -1,7 +1,6 @@
 extends Control
 
 
-var host
 var connected_peer_ids = []
 var peer_colors = []
 var peer_names = []
@@ -12,9 +11,8 @@ func _ready():
 	pass
 
 
-func host_game() -> void:
-	host = $"..".host
-	if host:
+func host_game(is_host: bool) -> void:
+	if is_host:
 		var peer = ENetMultiplayerPeer.new()
 		peer.create_server(54822)
 		multiplayer.multiplayer_peer = peer
@@ -24,13 +22,13 @@ func host_game() -> void:
 				add_previously_connected_players.rpc_id(new_peer_id, connected_peer_ids, peer_colors, peer_names)
 				add_myself.rpc_id(new_peer_id, new_peer_id)
 		)
-		$iniciar.visible = 1
-		$tempo_host.visible = 1
-	elif not host:
+		$iniciar.visible = true
+		$tempo_host.visible = true
+	elif not is_host:
 		var peer = ENetMultiplayerPeer.new()
-		peer.create_client("127.0.0.1", 54822)
+		peer.create_client($"../host_ip_address".text, 54822)
 		multiplayer.multiplayer_peer = peer
-		$tempo_client.visible = 1
+		$tempo_client.visible = true
 		$tempo_client.text = "Tempo:" + str(floori(tempo / 60.0)) + ":" + str(tempo % 60)
 
 
@@ -73,27 +71,29 @@ func add_previously_connected_players(peer_ids_: Array, colors: Array, names_: A
 
 func _process(_delta):
 	if $iniciando.visible:
-		$iniciando.text = "Iniciando em " + str(floor($timer.time_left)) + " segundos..."
+		$iniciando.text = "Iniciando em " + str(floori($timer.time_left)) + " segundos..."
 
 
 @rpc("call_local")
 func carregar():
 	add_sibling(load("res://zero.tscn").instantiate())
 	$"../zero/game_timer".start(tempo)
-	$iniciando.visible = 0
-	$cancelar.visible = 0
-	$iniciar.visible = 1
+	$iniciando.visible = false
+	if $"..".host:
+		$cancelar.visible = false
+		$iniciar.visible = true
+	visible = false
 
 
 @rpc("call_local")
 func iniciar():
-	$iniciando.visible = 1
+	$iniciando.visible = true
 	$timer.start()
 
 
 @rpc("call_local")
 func cancelar():
-	$iniciando.visible = 0
+	$iniciando.visible = false
 	$timer.stop()
 
 
@@ -119,14 +119,14 @@ func time_text():
 func _on_iniciar_pressed():
 	time_text()
 	iniciar.rpc()
-	$iniciar.visible = 0
-	$cancelar.visible = 1
+	$iniciar.visible = false
+	$cancelar.visible = true
 
 
 func _on_cancelar_pressed():
 	cancelar.rpc()
-	$iniciar.visible = 1
-	$cancelar.visible = 0
+	$iniciar.visible = true
+	$cancelar.visible = false
 
 
 @rpc("call_remote")

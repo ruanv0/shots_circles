@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://capvk35y13reg"]
 
 [ext_resource type="Texture2D" uid="uid://d2fypithkn1h4" path="res://bala.png" id="1_kiv0q"]
-[ext_resource type="Script" path="res://bala.gd" id="1_yy8lt"]
+[ext_resource type="Script" uid="uid://myglwvjojewc" path="res://bala.gd" id="1_yy8lt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hxqj3"]
 size = Vector2(22, 61)
