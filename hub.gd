@@ -7,15 +7,11 @@ var host = false
 
 
 func _ready() -> void:
-	$host.position.x = (get_viewport_rect().size.x - 500) / 2
-	$host.position.y = ((get_viewport_rect().size.y - 250) * 0.5) / 2
-	$join.position.x = (get_viewport_rect().size.x - 500) / 2
-	$join.position.y = ((get_viewport_rect().size.y - 250) * 1.5) / 2
 	for ip in IP.get_local_addresses():
 		if ip.count(".") == 3 and ip != "127.0.0.1":
 			ip_address = ip
 			break
-	$your_ip_address.text = ip_address
+	$your_ip_address.text = "Seu endereço IP local: " + ip_address
 	$host_ip_address.text = ip_address.split(".")[0] + "." + ip_address.split(".")[1] + "." + ip_address.split(".")[2] + "."
 
 
@@ -29,6 +25,7 @@ func _on_host_pressed() -> void:
 	$avatar_label.visible = false
 	$host_ip_address.visible = false
 	$your_ip_address.visible = false
+	$host_ip_address_label.visible = false
 
 
 func _on_join_pressed() -> void:
@@ -40,6 +37,7 @@ func _on_join_pressed() -> void:
 	$avatar_label.visible = false
 	$host_ip_address.visible = false
 	$your_ip_address.visible = false
+	$host_ip_address_label.visible = false
 
 
 func _input(event) -> void:

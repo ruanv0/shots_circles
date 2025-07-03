@@ -9,19 +9,19 @@
 script = ExtResource("1_p106a")
 
 [node name="host" type="Button" parent="."]
-offset_left = 440.0
-offset_top = 149.0
-offset_right = 840.0
-offset_bottom = 359.0
+offset_left = 729.0
+offset_top = 162.0
+offset_right = 1129.0
+offset_bottom = 372.0
 theme = ExtResource("2_ysrp0")
 theme_override_font_sizes/font_size = 120
 text = "Host"
 
 [node name="join" type="Button" parent="."]
-offset_left = 440.0
-offset_top = 376.0
-offset_right = 840.0
-offset_bottom = 586.0
+offset_left = 729.0
+offset_top = 395.0
+offset_right = 1129.0
+offset_bottom = 605.0
 theme = ExtResource("2_ysrp0")
 theme_override_font_sizes/font_size = 120
 text = "Join"
@@ -44,19 +44,30 @@ text = "Avatar"
 visible = false
 
 [node name="host_ip_address" type="LineEdit" parent="."]
-offset_top = 602.0
-offset_right = 445.0
-offset_bottom = 665.0
+offset_left = 10.0
+offset_top = 346.0
+offset_right = 383.0
+offset_bottom = 409.0
 theme = ExtResource("2_ysrp0")
-placeholder_text = "host ip address"
+placeholder_text = "Host IP address"
 
 [node name="your_ip_address" type="Label" parent="."]
 custom_minimum_size = Vector2(0.025, 0)
-offset_top = 665.0
-offset_right = 298.0
-offset_bottom = 720.0
+offset_left = 10.0
+offset_top = 217.0
+offset_right = 436.0
+offset_bottom = 272.0
 theme = ExtResource("2_ysrp0")
-text = "your ip address"
+text = "Seu endereço IP local: 192.160.100.x"
+
+[node name="host_ip_address_label" type="Label" parent="."]
+custom_minimum_size = Vector2(0.025, 0)
+offset_left = 10.0
+offset_top = 290.0
+offset_right = 547.0
+offset_bottom = 345.0
+theme = ExtResource("2_ysrp0")
+text = "O endereço IP local do hospedeiro:"
 
 [connection signal="pressed" from="host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="join" to="." method="_on_join_pressed"]

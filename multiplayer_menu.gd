@@ -18,6 +18,10 @@ func host_game(is_host: bool) -> void:
 				add_previously_connected_players.rpc_id(new_peer_id, connected_peer_ids, peer_colors, peer_names)
 				add_myself.rpc_id(new_peer_id, new_peer_id, tempo)
 		)
+		multiplayer.peer_disconnected.connect(
+			func(peer_id):
+				remove_player.rpc(peer_id)
+		)
 		$iniciar.visible = true
 		$tempo_host.visible = true
 		update_information(tempo)
@@ -38,7 +42,20 @@ func add_player(id: int, color: int, user_name_: String) -> void:
 	connected_peer_ids.append(id)
 	peer_colors.append(color)
 	peer_names.append(user_name_)
-	update_information(tempo)
+	update_information.rpc(tempo)
+
+
+@rpc("call_local")
+func remove_player(id: int):
+	print("multiplayer.get_unique_id() -> ", multiplayer.get_unique_id())
+	print("id -> ", id, " |  connected_peer_ids.find(id) -> ", connected_peer_ids.find(id))
+	peer_colors.pop_at(connected_peer_ids.find(id))
+	print("1. len(peer_names) -> ", len(peer_names))
+	peer_names.pop_at(connected_peer_ids.find(id))
+	print("2. len(peer_names) -> ", len(peer_names))
+	$names_list.remove_item(connected_peer_ids.find(id))
+	connected_peer_ids.erase(id)
+	update_information.rpc(tempo)
 
 
 func players_positions() -> Array:
@@ -47,7 +64,6 @@ func players_positions() -> Array:
 		if child is CharacterBody2D:
 			players_positions_.append(child.global_position)
 	return players_positions_
-
 
 @rpc
 func add_myself(id: int, tempo_: int) -> void:
@@ -69,6 +85,7 @@ func add_previously_connected_players(peer_ids_: Array, colors: Array, names_: A
 func _process(_delta) -> void:
 	if $iniciando.visible:
 		$iniciando.text = "Iniciando em " + str(floori($timer.time_left)) + " segundos..."
+	#print("3. len(peer_names) -> ", len(peer_names))
 
 
 @rpc("call_local")
@@ -133,9 +150,9 @@ func _on_cancelar_pressed() -> void:
 	$cancelar.visible = false
 
 
-@rpc("call_local")
 # É importante uma chamada local para que ao clicar
 # o botão 'Iniciar' todos os jogadores estejam atualizados
+@rpc("call_local", "any_peer")
 func update_information(time: int) -> void:
 	tempo = time
 	if floori(tempo / 60.0) >= 10:
@@ -160,3 +177,20 @@ func _on_minutes_edit_text_changed(new_text: String) -> void:
 
 func _on_seconds_edit_text_changed(new_text: String) -> void:
 	time_text()
+
+
+func _on_sair_pressed() -> void:
+	multiplayer.multiplayer_peer = null
+	connected_peer_ids = []
+	peer_colors = []
+	peer_names = []
+	$names_list.clear()
+	tempo = 300
+	visible = false
+	$"../host".visible = true
+	$"../join".visible = true
+	$"../avatar".visible = true
+	$"../avatar_label".visible = true
+	$"../host_ip_address".visible = true
+	$"../your_ip_address".visible = true
+	$"../host_ip_address_label".visible = true

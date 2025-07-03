@@ -203,8 +203,7 @@ wait_time = 5.0
 one_shot = true
 
 [node name="mapa" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(1185, 98)
+position = Vector2(1185, 95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_7tnxx")
 

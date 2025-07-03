@@ -104,12 +104,12 @@ func _physics_process(delta) -> void:
 		#Vector2(-3000, -3300)
 		#Vector2(3600, 3300)
 		
-		#Vector2(-98, -98)
-		#Vector2(98, 98)
+		#Vector2(-94.5, -94.5)
+		#Vector2(94.5, 94.5)
 		
 		
-		$mapa/ponto.position.x = (((global_position.x + 3000) / 6600) * 196 - 85) * 2
-		$mapa/ponto.position.y = (((global_position.y + 3300) / 6600) * 196 - 85) * 2
+		$mapa/ponto.position.x = (((global_position.x + 3000) / 6600) * 378 - 160)
+		$mapa/ponto.position.y = (((global_position.y + 3300) / 6600) * 378 - 160)
 		#print($mapa/ponto.position)
 		
 

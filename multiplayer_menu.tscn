@@ -37,9 +37,9 @@ Endereço do hospedeiro:
 [node name="iniciar" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 670.0
+offset_left = 650.0
 offset_top = 550.0
-offset_right = 830.0
+offset_right = 810.0
 offset_bottom = 625.0
 theme = ExtResource("2_326qw")
 text = "Iniciar"
@@ -57,9 +57,9 @@ text = "Iniciando em x segundos..."
 [node name="cancelar" type="Button" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 670.0
+offset_left = 650.0
 offset_top = 550.0
-offset_right = 858.0
+offset_right = 859.0
 offset_bottom = 625.0
 theme = ExtResource("2_326qw")
 text = "Cancelar"
@@ -116,8 +116,19 @@ theme = ExtResource("2_326qw")
 text = "0"
 max_length = 2
 
+[node name="sair" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1127.0
+offset_top = 19.0
+offset_right = 1267.0
+offset_bottom = 88.0
+theme = ExtResource("2_326qw")
+text = "Sair"
+expand_icon = true
+
 [connection signal="pressed" from="iniciar" to="." method="_on_iniciar_pressed"]
 [connection signal="pressed" from="cancelar" to="." method="_on_cancelar_pressed"]
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
 [connection signal="text_changed" from="tempo_host/minutes_edit" to="." method="_on_minutes_edit_text_changed"]
 [connection signal="text_changed" from="tempo_host/seconds_edit" to="." method="_on_seconds_edit_text_changed"]
+[connection signal="pressed" from="sair" to="." method="_on_sair_pressed"]
