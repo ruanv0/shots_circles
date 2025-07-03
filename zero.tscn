@@ -7,14 +7,14 @@
 script/source = "extends Node2D
 
 
-var spawnpoints = [Vector2(-390, 755), Vector2(989, 755), Vector2(1100, -800), Vector2(-500, -800),
-				   Vector2(300, 1400), Vector2(300, -1400), Vector2(-1100, 0), Vector2(1700, 0),
-				   Vector2(2500, 0), Vector2(-1900, 0), Vector2(2850, -2500), Vector2(-2250, -2500),
-				   Vector2(-2250, 2500), Vector2(2850, 2500), Vector2(300, 2100), Vector2(300, -2100),
+var spawnpoints = [Vector2(-390, 755), Vector2(989, 755), Vector2(1100, -800), Vector2(-350, -800),
+				   Vector2(300, 1200), Vector2(300, -1500), Vector2(-1100, 0), Vector2(1700, 50),
+				   Vector2(2500, 0), Vector2(-1900, 50), Vector2(2700, -2500), Vector2(-2200, -2500),
+				   Vector2(-2250, 2500), Vector2(2700, 2500), Vector2(300, 1950), Vector2(300, -1850),
 				   Vector2(2200, -1850), Vector2(-1600, -1850), Vector2(-1600, 1850), Vector2(2200, 1850),
-				   Vector2(3200, -1200), Vector2(3200, 1200), Vector2(1500, 2950), Vector2(-900, 2950),
-				   Vector2(-2600, 1200), Vector2(-2600, -1200), Vector2(-900, -2950), Vector2(1500, -2950),
-				   Vector2(1500, -1200), Vector2(-900, -1200), Vector2(-900, 1200), Vector2(1500, 1200)]
+				   Vector2(2700, -1200), Vector2(3200, 1200), Vector2(1500, 2700), Vector2(-900, 2700),
+				   Vector2(-2600, 1200), Vector2(-2600, -1200), Vector2(-900, -3150), Vector2(1500, -3150),
+				   Vector2(1750, -1200), Vector2(-900, -1200), Vector2(-900, 1150), Vector2(1500, 1200)]
 var spawnpoints_used = [false, false, false, false,
 						false, false, false, false,
 						false, false, false, false,
@@ -31,7 +31,7 @@ var peer_names
 var kills = []
 
 
-func spawn_point():
+func spawn_point() -> Vector2:
 	var not_used_spawn_indexes = []
 	for point_index in range(0, len(spawnpoints_used), 1):
 		if spawnpoints_used[point_index] == false:
@@ -42,183 +42,183 @@ func spawn_point():
 	return spawnpoints[spawn_index]
 
 
-func _ready():
+func _ready() -> void:
 	host = $\"..\".host
 	$\"../multiplayer_menu\".visible = 0
 	connected_peer_ids = $\"../multiplayer_menu\".connected_peer_ids
 	peer_colors = $\"../multiplayer_menu\".peer_colors
 	peer_names = $\"../multiplayer_menu\".peer_names
 	if host:
-		for i in range(0, len(connected_peer_ids)):
-			add_player.rpc(connected_peer_ids[i], spawn_point(),
-						   peer_colors[i], peer_names[i])
+		for index in range(0, len(connected_peer_ids)):
+			add_player.rpc(connected_peer_ids[index], spawn_point(),
+						   peer_colors[index], peer_names[index])
 
 
 @rpc(\"call_local\")
-func add_player(id: int, position_: Vector2, color: int, user_name_: String):
+func add_player(id: int, position_: Vector2, color: int, user_name_: String) -> void:
 	var player = player_scene.instantiate()
 	player.name = \"player\" + str(id)
 	player.set_meta(\"cor\", color)
 	player.set_meta(\"user_name\", user_name_)
 	kills.append([user_name_, 0, \"player\" + str(id)])
 	add_child(player)
-	get_node(\"player\" + str(id)).position = position_
+	get_node(\"player\" + str(id)).global_position = position_
 
 
-func players_positions():
+func players_positions() -> Array:
 	var players_positions_ = []
-	for i in get_children():
-		if i is CharacterBody2D:
-			players_positions_.append(i.position)
+	for child in get_children():
+		if child is CharacterBody2D:
+			players_positions_.append(child.position)
 	return players_positions_
 
 
-func sort_kills():
+func sort_kills() -> void:
 	for i in range(len(kills)):
 		for j in range(0, len(kills)-i-1):
 			if kills[j][1] < kills[j+1][1]:
 				var a = kills[j]
 				kills[j] = kills[j+1]
 				kills[j+1] = a
-	print(kills)
+	#print(kills)
 
 
-func _on_timer_0_timeout():
+func _on_timer_0_timeout() -> void:
 	spawnpoints_used[0] = false
 
 
-func _on_timer_1_timeout():
+func _on_timer_1_timeout() -> void:
 	spawnpoints_used[1] = false
 
 
-func _on_timer_2_timeout():
+func _on_timer_2_timeout() -> void:
 	spawnpoints_used[2] = false
 
 
-func _on_timer_3_timeout():
+func _on_timer_3_timeout() -> void:
 	spawnpoints_used[3] = false
 
 
-func _on_timer_4_timeout():
+func _on_timer_4_timeout() -> void:
 	spawnpoints_used[4] = false
 
 
-func _on_timer_5_timeout():
+func _on_timer_5_timeout() -> void:
 	spawnpoints_used[5] = false
 
 
-func _on_timer_6_timeout():
+func _on_timer_6_timeout() -> void:
 	spawnpoints_used[6] = false
 
 
-func _on_timer_7_timeout():
+func _on_timer_7_timeout() -> void:
 	spawnpoints_used[7] = false
 
 
-func _on_timer_8_timeout():
+func _on_timer_8_timeout() -> void:
 	spawnpoints_used[8] = false
 
 
-func _on_timer_9_timeout():
+func _on_timer_9_timeout() -> void:
 	spawnpoints_used[9] = false
 
 
-func _on_timer_10_timeout():
+func _on_timer_10_timeout() -> void:
 	spawnpoints_used[10] = false
 
 
-func _on_timer_11_timeout():
+func _on_timer_11_timeout() -> void:
 	spawnpoints_used[11] = false
 
 
-func _on_timer_12_timeout():
+func _on_timer_12_timeout() -> void:
 	spawnpoints_used[12] = false
 
 
-func _on_timer_13_timeout():
+func _on_timer_13_timeout() -> void:
 	spawnpoints_used[13] = false
 
 
-func _on_timer_14_timeout():
+func _on_timer_14_timeout() -> void:
 	spawnpoints_used[14] = false
 
 
-func _on_timer_15_timeout():
+func _on_timer_15_timeout() -> void:
 	spawnpoints_used[15] = false
 
 
-func _on_timer_16_timeout():
+func _on_timer_16_timeout() -> void:
 	spawnpoints_used[16] = false
 
 
-func _on_timer_17_timeout():
+func _on_timer_17_timeout() -> void:
 	spawnpoints_used[17] = false
 
 
-func _on_timer_18_timeout():
+func _on_timer_18_timeout() -> void:
 	spawnpoints_used[18] = false
 
 
-func _on_timer_19_timeout():
+func _on_timer_19_timeout() -> void:
 	spawnpoints_used[19] = false
 
 
-func _on_timer_20_timeout():
+func _on_timer_20_timeout() -> void:
 	spawnpoints_used[20] = false
 
 
-func _on_timer_21_timeout():
+func _on_timer_21_timeout() -> void:
 	spawnpoints_used[21] = false
 
 
-func _on_timer_22_timeout():
+func _on_timer_22_timeout() -> void:
 	spawnpoints_used[22] = false
 
 
-func _on_timer_23_timeout():
+func _on_timer_23_timeout() -> void:
 	spawnpoints_used[23] = false
 
 
-func _on_timer_24_timeout():
+func _on_timer_24_timeout() -> void:
 	spawnpoints_used[24] = false
 
 
-func _on_timer_25_timeout():
+func _on_timer_25_timeout() -> void:
 	spawnpoints_used[25] = false
 
 
-func _on_timer_26_timeout():
+func _on_timer_26_timeout() -> void:
 	spawnpoints_used[26] = false
 
 
-func _on_timer_27_timeout():
+func _on_timer_27_timeout() -> void:
 	spawnpoints_used[27] = false
 
 
-func _on_timer_28_timeout():
+func _on_timer_28_timeout() -> void:
 	spawnpoints_used[28] = false
 
 
-func _on_timer_29_timeout():
+func _on_timer_29_timeout() -> void:
 	spawnpoints_used[29] = false
 
 
-func _on_timer_30_timeout():
+func _on_timer_30_timeout() -> void:
 	spawnpoints_used[30] = false
 
 
-func _on_timer_31_timeout():
+func _on_timer_31_timeout() -> void:
 	spawnpoints_used[31] = false
 
 
 @rpc(\"call_local\", \"any_peer\")
-func finish_game():
-	for i in get_children():
-		if i is CharacterBody2D:
-			i.terminar()
+func finish_game() -> void:
+	for child in get_children():
+		if child is CharacterBody2D:
+			child.terminar()
 
 
-func _on_game_timer_timeout():
+func _on_game_timer_timeout() -> void:
 	finish_game.rpc()
 "
 
@@ -384,6 +384,9 @@ one_shot = true
 [node name="game_timer" type="Timer" parent="."]
 wait_time = 360.0
 one_shot = true
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(3600, -3000)
 
 [connection signal="timeout" from="spawnpoints/timer0" to="." method="_on_timer_0_timeout"]
 [connection signal="timeout" from="spawnpoints/timer1" to="." method="_on_timer_1_timeout"]

@@ -8,13 +8,13 @@ var angle = 0
 var go_to = Vector2(0, 0)
 
 
-func _ready():
+func _ready() -> void:
 	if is_multiplayer_authority():
 		old_position = global_position
 		radius *= scale.x # scale.x e scale.y devem ser iguais
 
 
-func _input(event):
+func _input(event) -> void:
 	if is_multiplayer_authority():
 		if event is InputEventScreenTouch:
 			var distance = event.position.distance_to(old_position)
@@ -32,7 +32,6 @@ func _input(event):
 			first_touch = -1
 			if len(touched) != 0:
 				first_touch = touched[0]
-		
 		elif event is InputEventScreenDrag && event.index == first_touch:
 			if event.position.distance_to(old_position) > radius:
 				trocar_posicao.rpc(old_position - event.position, true)
@@ -41,7 +40,7 @@ func _input(event):
 
 
 @rpc("call_local")
-func trocar_posicao(position_: Vector2, so_long: bool):
+func trocar_posicao(position_: Vector2, so_long: bool) -> void:
 	var x
 	var y
 	if position_.x == 0 && position_.y == 0:
@@ -89,7 +88,7 @@ func trocar_posicao(position_: Vector2, so_long: bool):
 
 
 @rpc("call_local")
-func atirar():
+func atirar() -> void:
 	if $balas_bar.value > 0 and $timer2.is_stopped():
 		$"../".ajustar_tiro()
 		$balas_bar.value -= 1
@@ -98,7 +97,7 @@ func atirar():
 		$"../timer1".start()
 
 
-func _on_timer_0_timeout():
+func _on_timer_0_timeout() -> void:
 	# O $timer0 é o tempo entre as recargas das balas
 	# O $timer1 é o tempo após um tiro que tardaria as recargas das balas
 	# Para ser mais justo entre os diferentes dispositivos

@@ -13,7 +13,7 @@ var colunas_px = []
 var back_pressed = -1
 
 
-func select(num_cor: int):
+func select(num_cor: int) -> void:
 	var y = 720 - 190 - 30 # == 500
 	$select.scale = Vector2(colunas_px[floor(num_cor / 5.0)] + 100,
 							100)
@@ -28,7 +28,7 @@ func select(num_cor: int):
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	$name_text.text = player_info.user_name
 	for i in get_children():
 		if i.name in ["select", "avatar", "escolha", "back", "name_text", "name"]:
@@ -63,8 +63,8 @@ func _ready():
 	select(player_info.cor)
 
 
-func _input(event):
-	if event is InputEventScreenTouch and not event.pressed:
+func _input(event) -> void:
+	if visible and event is InputEventScreenTouch and not event.pressed:
 		var coluna = -1
 		var x = 50
 		for i in range(0, len(colunas_px)):
@@ -106,6 +106,6 @@ func _input(event):
 				back_pressed = event.index
 
 
-func _on_name_text_text_changed(new_text):
+func _on_name_text_text_changed(new_text) -> void:
 	player_info.user_name = new_text
 	player_info.save()

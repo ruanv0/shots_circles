@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b0pav740be3q"]
+[gd_scene load_steps=17 format=3 uid="uid://b0pav740be3q"]
 
 [ext_resource type="Texture2D" uid="uid://k6wh64eb845r" path="res://circulos/circulo_amarelo.png" id="2_amlq5"]
 [ext_resource type="Texture2D" uid="uid://d0gke3r57dxpn" path="res://arma.png" id="2_sfomk"]
@@ -10,6 +10,8 @@
 [ext_resource type="FontFile" uid="uid://bmlhr6t0e2ycg" path="res://UbuntuSansMono-VariableFont_wght.ttf" id="8_dlrhy"]
 [ext_resource type="Texture2D" uid="uid://uvbg3crme6gm" path="res://fundo_transparente.png" id="9_a0dv3"]
 [ext_resource type="Theme" uid="uid://04ex0vg6beua" path="res://theme.tres" id="10_jb3kq"]
+[ext_resource type="Texture2D" uid="uid://be4afwtdv4gtb" path="res://Captura de tela 2025-07-02 211928.png" id="11_7tnxx"]
+[ext_resource type="Texture2D" uid="uid://jfd3kvafvbd8" path="res://joystick_atirar.png" id="12_bwfjh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hidji"]
 radius = 113.004
@@ -65,6 +67,15 @@ func _on_timer_timeout():
 script = ExtResource("5_ip2cj")
 metadata/cor = 0
 metadata/user_name = ""
+
+[node name="Button" type="Button" parent="."]
+visible = false
+offset_left = 15.0
+offset_top = 81.0
+offset_right = 233.0
+offset_bottom = 150.0
+theme = ExtResource("10_jb3kq")
+text = "Respawn"
 
 [node name="circulo" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
@@ -200,6 +211,17 @@ text = "Terminando o jogo..."
 wait_time = 5.0
 one_shot = true
 
+[node name="mapa" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1185, 98)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_7tnxx")
+
+[node name="ponto" type="Sprite2D" parent="mapa"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("12_bwfjh")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="timer0" to="." method="_on_timer_0_timeout"]
 [connection signal="timeout" from="renascer/timer" to="renascer" method="_on_timer_timeout"]
 [connection signal="timeout" from="terminando/finish_timer" to="." method="_on_finish_timer_timeout"]

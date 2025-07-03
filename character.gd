@@ -6,7 +6,7 @@ var balas_usadas = [false, false, false]
 var last_attack = ""
 
 
-func preparar(cor, user_name):
+func preparar(cor, user_name) -> void:
 	var cores_pt = ["amarelo", "azul", "banana",
 					"branco", "caqui", "ciano",
 					"cinza", "coral", "laranja",
@@ -27,30 +27,32 @@ func preparar(cor, user_name):
 	$joystick_andar.visible = is_multiplayer_authority()
 	$joystick_atirar.visible = is_multiplayer_authority()
 	$tempo.visible = is_multiplayer_authority()
+	$mapa.visible = is_multiplayer_authority()
+	$Button.visible = is_multiplayer_authority()
 
 
-func _enter_tree():
+func _enter_tree() -> void:
 	var authority_name = str(name).replace("player", "")
 	set_multiplayer_authority(authority_name.to_int())
 
 
-func _ready():
+func _ready() -> void:
 	preparar(get_meta("cor"), get_meta("user_name"))
 	if is_multiplayer_authority():
 		$camera.make_current()
 
 
-func ajustar_tiro():
+func ajustar_tiro() -> void:
 	var num_bala = balas_usadas.find(false)
 	get_node("bala" + str(num_bala)).usar()
 	balas_usadas[num_bala] = true
 
 
-func desativar_bala(num: String):
+func desativar_bala(num: String) -> void:
 	balas_usadas[int(num)] = false
 
 
-func andar(delta):
+func andar(delta) -> void:
 	var goto = $joystick_andar.go_to
 	var angle = $joystick_atirar.angle
 	var radius = $joystick_atirar.radius
@@ -82,7 +84,7 @@ func andar(delta):
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	if is_multiplayer_authority():
 		var tempo = floori($"../game_timer".time_left)
 		if $tempo.text != str(tempo):
@@ -99,20 +101,31 @@ func _physics_process(delta):
 		andar(delta)
 		# Mover com a variável velocity
 		move_and_slide()
-		update_data.rpc(position, $arma.visible, $arma.rotation, $arma.position)
-		print(position)
+		update_data.rpc(global_position, $arma.visible, $arma.rotation, $arma.position)
+		#print(position)
+		#Vector2(-3000, -3300)
+		#Vector2(3600, 3300)
+		
+		#Vector2(-98, -98)
+		#Vector2(98, 98)
+		
+		
+		$mapa/ponto.position.x = (((global_position.x + 3000) / 6600) * 196 - 85) * 2
+		$mapa/ponto.position.y = (((global_position.y + 3300) / 6600) * 196 - 85) * 2
+		#print($mapa/ponto.position)
+		
 
 
 @rpc("call_remote", "unreliable")
-func update_data(authority_position: Vector2, arma_visibility: bool, arma_rotation: float, arma_position: Vector2):
-	position = authority_position
+func update_data(authority_position: Vector2, arma_visibility: bool, arma_rotation: float, arma_position: Vector2) -> void:
+	global_position = authority_position
 	$arma.visible = arma_visibility
 	$arma.rotation = arma_rotation
 	$arma.position = arma_position
 
 
 @rpc("call_local", "any_peer")
-func hurt(attacker_name: String):
+func hurt(attacker_name: String) -> void:
 	last_attack = attacker_name
 	$saude.value -= 1
 	$timer1.start()
@@ -142,14 +155,14 @@ func hurt(attacker_name: String):
 
 
 @rpc("call_local")
-func count_kill(last_attack_: String):
+func count_kill(last_attack_: String) -> void:
 	for i in range(0, len($"../".kills)):
 		if $"../".kills[i][2] == last_attack_:
 			$"../".kills[i][1] += 1
 			break
 
 
-func terminar():
+func terminar() -> void:
 	$collision_shape.set_deferred("disabled", 1)
 	if is_multiplayer_authority():
 		$players_list.visible = 1
@@ -168,9 +181,11 @@ func terminar():
 		$terminando.visible = 1
 		$terminando/finish_timer.start()
 		$tempo.visible = 0
+		$mapa.visible = false
+		$Button.visible = false
 
 
-func _on_timer_0_timeout():
+func _on_timer_0_timeout() -> void:
 	# O $timer0 é o tempo entre as adições de saúde
 	# O $timer1 é o tempo após um tiro que tardaria as adições de saúde
 	if $timer1.is_stopped() and $saude.value < $saude.max_value:
@@ -179,12 +194,17 @@ func _on_timer_0_timeout():
 
 
 @rpc("call_local")
-func terminar_():
+func terminar_() -> void:
 	$"..".queue_free()
 	$"../../multiplayer_menu".visible = true
 
 
-func _on_finish_timer_timeout():
+func _on_finish_timer_timeout() -> void:
 	# O host tem id 1
 	if multiplayer.get_unique_id() == 1:
 		terminar_.rpc()
+
+
+func _on_button_pressed() -> void:
+	global_position = $"..".spawn_point()
+	print(global_position)

@@ -5,12 +5,12 @@ var speed = 2000
 var goto = Vector2(0, 0)
 
 
-func _ready():
+func _ready() -> void:
 	scale = Vector2(0.25, 0.25)
 	# self.scale deve ser igual a $"../character".scale ns mapas
 
 
-func usar():
+func usar() -> void:
 	visible = true
 	$CollisionShape2D.disabled = false
 	goto = $"../joystick_atirar".go_to
@@ -26,7 +26,7 @@ func usar():
 
 
 @rpc("call_local")
-func parar():
+func parar() -> void:
 	$timer.stop()
 	visible = false
 	$CollisionShape2D.set_deferred("disabled", true)
@@ -36,19 +36,20 @@ func parar():
 		update_data.rpc(visible, global_position)
 
 
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	if is_multiplayer_authority() and not (velocity.x == 0 and velocity.y == 0):
 		update_data.rpc(visible, global_position)
 		move_and_slide()
 
+
 @rpc("call_remote", "unreliable")
-func update_data(visible_: bool, pos: Vector2):
+func update_data(visible_: bool, pos: Vector2) -> void:
 	visible = visible_
 	$CollisionShape2D.disabled = not visible
 	global_position = pos
 
 
-func _on_area_2d_body_entered(body):
+func _on_area_2d_body_entered(body) -> void:
 	if body.name == "TileMap":
 		if rotation >= 0 and rotation <= PI / 2:
 			goto.x *= -1
@@ -62,8 +63,7 @@ func _on_area_2d_body_entered(body):
 		rotation = - rotation
 
 
-
-func _on_area_2d_2_body_entered(body):
+func _on_area_2d_2_body_entered(body) -> void:
 	if body.name == "TileMap":
 		if rotation >= 0 and rotation <= PI / 2:
 			goto.y *= -1
@@ -77,13 +77,13 @@ func _on_area_2d_2_body_entered(body):
 		rotation = - rotation
 
 
-func _on_area_2d_3_body_entered(body):
+func _on_area_2d_3_body_entered(body) -> void:
 	if "player" in body.name and $"..".name != body.name and is_multiplayer_authority() and visible:
 		body.hurt.rpc($"../".name)
 		parar.rpc()
 
 
-func _on_timer_timeout():
+func _on_timer_timeout() -> void:
 	if visible:
 		visible = false
 		$CollisionShape2D.disabled = true

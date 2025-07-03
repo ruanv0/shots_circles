@@ -8,12 +8,12 @@ var go_to = Vector2(0, 0)
 var angle = 0
 
 
-func _ready():
+func _ready() -> void:
 	old_position = global_position
 	radius *= scale.x # scale.x e scale.y devem ser iguais
 
 
-func _input(event):
+func _input(event) -> void:
 	if event is InputEventScreenTouch:
 		var distance = event.position.distance_to(old_position)
 		if event.pressed:
@@ -24,7 +24,6 @@ func _input(event):
 			$small_circle.position = Vector2(0, 0)
 			go_to = Vector2(0, 0)
 			angle = 0
-		
 		first_touch = -1
 		if len(touched) != 0:
 			first_touch = touched[0]
@@ -35,7 +34,7 @@ func _input(event):
 			trocar_posicao(old_position - event.position, false)
 
 
-func trocar_posicao(position_: Vector2, so_long: bool):
+func trocar_posicao(position_: Vector2, so_long: bool) -> void:
 	var x
 	var y
 	if position_.x == 0 && position_.y == 0:
