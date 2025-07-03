@@ -28,7 +28,6 @@ func preparar(cor, user_name) -> void:
 	$joystick_atirar.visible = is_multiplayer_authority()
 	$tempo.visible = is_multiplayer_authority()
 	$mapa.visible = is_multiplayer_authority()
-	$Button.visible = is_multiplayer_authority()
 
 
 func _enter_tree() -> void:
@@ -55,14 +54,13 @@ func desativar_bala(num: String) -> void:
 func andar(delta) -> void:
 	var goto = $joystick_andar.go_to
 	var angle = $joystick_atirar.angle
-	var radius = $joystick_atirar.radius
 	# $arma e $mira devem ter a mesma rotação e a mesma visibilidade
 	if angle != 0:
-		$arma.global_position = Vector2(global_position.x + 640 + sin(angle) * radius * 1.3,
-										global_position.y + 360 - cos(angle) * radius * 1.3)
+		$arma.global_position = Vector2(global_position.x + 640 + sin(angle) * ($collision_shape.shape.radius + 20),
+										global_position.y + 360 - cos(angle) * ($collision_shape.shape.radius + 20))
 		$arma.rotation = angle
-		$mira.global_position = Vector2(global_position.x + 640 + sin(angle) * radius * 3.2,
-										global_position.y + 360 - cos(angle) * radius * 3.2)
+		$mira.global_position = Vector2(global_position.x + 640 + sin(angle) * ($collision_shape.shape.radius + 240),
+										global_position.y + 360 - cos(angle) * ($collision_shape.shape.radius + 240))
 		$mira.rotation = angle
 		# A visilibidade de $arma e $mira devem ser iguais
 		if not $arma.visible:

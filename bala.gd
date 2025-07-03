@@ -15,9 +15,8 @@ func usar() -> void:
 	$CollisionShape2D.disabled = false
 	goto = $"../joystick_atirar".go_to
 	var angle = $"../joystick_atirar".angle
-	var radius = $"../joystick_atirar".radius
-	global_position = Vector2($"../".global_position.x + 640 + sin(angle) * (radius + 100),
-							  $"../".global_position.y + 360 - cos(angle) * (radius + 100))
+	global_position = Vector2($"../".global_position.x + 640 + sin(angle) * ($"../collision_shape".shape.radius + 5),
+							  $"../".global_position.y + 360 - cos(angle) * ($"../collision_shape".shape.radius + 5))
 	rotation = angle
 	velocity = goto * speed
 	$timer.start()

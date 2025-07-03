@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://jfd3kvafvbd8" path="res://joystick_atirar.png" id="12_bwfjh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hidji"]
-radius = 113.004
+radius = 54.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2xosh"]
 bg_color = Color(0.843287, 0, 0.187833, 1)
@@ -70,7 +70,7 @@ metadata/user_name = ""
 
 [node name="circulo" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.12, 0.12)
 texture = ExtResource("2_amlq5")
 
 [node name="arma" type="Sprite2D" parent="."]
