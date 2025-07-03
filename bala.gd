@@ -50,7 +50,7 @@ func update_data(visible_: bool, pos: Vector2) -> void:
 
 
 func _on_area_2d_body_entered(body) -> void:
-	if body.name == "TileMap":
+	if body.name == "TileMapLayer":
 		if rotation >= 0 and rotation <= PI / 2:
 			goto.x *= -1
 		elif rotation >= PI / 2 and rotation <= PI:
@@ -64,7 +64,7 @@ func _on_area_2d_body_entered(body) -> void:
 
 
 func _on_area_2d_2_body_entered(body) -> void:
-	if body.name == "TileMap":
+	if body.name == "TileMapLayer":
 		if rotation >= 0 and rotation <= PI / 2:
 			goto.y *= -1
 		elif rotation >= PI / 2 and rotation <= PI:

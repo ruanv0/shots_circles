@@ -138,20 +138,20 @@ func hurt(attacker_name: String) -> void:
 			for i in $"../".kills:
 				$players_list.add_item(i[0])
 				$kills_list.add_item(str(i[1]))
-			$players_list.visible = 1
-			$kills_list.visible = 1
-			$fundo.visible = 1
-			$renascer.visible = 1
+			$players_list.visible = true
+			$kills_list.visible = true
+			$fundo.visible = true
+			$renascer.visible = true
 			$renascer/timer.start()
 			$camera.zoom = Vector2(0.5, 0.5)
-			$joystick_atirar.visible = 0
+			$joystick_atirar.visible = false
 			$joystick_andar.position = Vector2(-220, 694)
 			$joystick_andar.scale = Vector2(1.4, 1.4)
 		$collision_shape.set_deferred("disabled", 1)
-		$circulo.visible = 0
-		$arma.visible = 0
-		$saude.visible = 0
-		$name.visible = 0
+		$circulo.visible = false
+		$arma.visible = false
+		$saude.visible = false
+		$name.visible = false
 
 
 @rpc("call_local")
@@ -165,22 +165,22 @@ func count_kill(last_attack_: String) -> void:
 func terminar() -> void:
 	$collision_shape.set_deferred("disabled", 1)
 	if is_multiplayer_authority():
-		$players_list.visible = 1
-		$kills_list.visible = 1
+		$players_list.visible = true
+		$kills_list.visible = true
 		$players_list.clear()
 		$kills_list.clear()
 		$"..".sort_kills()
 		for i in $"..".kills:
 			$players_list.add_item(i[0])
 			$kills_list.add_item(str(i[1]))
-		$fundo.visible = 1
+		$fundo.visible = true
 		$camera.zoom = Vector2(0.5, 0.5)
-		$joystick_atirar.visible = 0
+		$joystick_atirar.visible = false
 		$joystick_andar.position = Vector2(-220, 694)
 		$joystick_andar.scale = Vector2(1.4, 1.4)
-		$terminando.visible = 1
+		$terminando.visible = true
 		$terminando/finish_timer.start()
-		$tempo.visible = 0
+		$tempo.visible = false
 		$mapa.visible = false
 		$Button.visible = false
 
@@ -203,8 +203,3 @@ func _on_finish_timer_timeout() -> void:
 	# O host tem id 1
 	if multiplayer.get_unique_id() == 1:
 		terminar_.rpc()
-
-
-func _on_button_pressed() -> void:
-	global_position = $"..".spawn_point()
-	print(global_position)

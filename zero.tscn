@@ -36,7 +36,11 @@ func spawn_point() -> Vector2:
 	for point_index in range(0, len(spawnpoints_used), 1):
 		if spawnpoints_used[point_index] == false:
 			not_used_spawn_indexes.append(point_index)
-	var spawn_index = not_used_spawn_indexes.pick_random()
+	var spawn_index: int
+	if len(spawnpoints_used) > 0:
+		spawn_index = not_used_spawn_indexes.pick_random()
+	elif len(spawnpoints_used) == 0:
+		spawn_index = randi() % len(spawnpoints)
 	spawnpoints_used[spawn_index] = true
 	$spawnpoints.get_node(\"timer\" + str(spawn_index)).start()
 	return spawnpoints[spawn_index]

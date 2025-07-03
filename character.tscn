@@ -68,15 +68,6 @@ script = ExtResource("5_ip2cj")
 metadata/cor = 0
 metadata/user_name = ""
 
-[node name="Button" type="Button" parent="."]
-visible = false
-offset_left = 15.0
-offset_top = 81.0
-offset_right = 233.0
-offset_bottom = 150.0
-theme = ExtResource("10_jb3kq")
-text = "Respawn"
-
 [node name="circulo" type="Sprite2D" parent="."]
 position = Vector2(640, 360)
 scale = Vector2(0.25, 0.25)
@@ -221,7 +212,6 @@ texture = ExtResource("11_7tnxx")
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("12_bwfjh")
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="timer0" to="." method="_on_timer_0_timeout"]
 [connection signal="timeout" from="renascer/timer" to="renascer" method="_on_timer_timeout"]
 [connection signal="timeout" from="terminando/finish_timer" to="." method="_on_finish_timer_timeout"]
