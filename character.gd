@@ -21,8 +21,9 @@ func preparar(cor, user_name) -> void:
 		$name.add_theme_color_override("font_color", Color8(0, 0, 0))
 	if len(user_name) > 7:
 		$name.add_theme_font_size_override("font_size", 50 / float(len(user_name)) * 7)
-	else:
-		$name.position.x += 28 * (7 - len(user_name)) / 2.0
+		await($name.minimum_size_changed)
+	$name.reset_size()
+	$name.position.x = 640 - $name.size.x / 2
 	$camera.visible = is_multiplayer_authority()
 	$joystick_andar.visible = is_multiplayer_authority()
 	$joystick_atirar.visible = is_multiplayer_authority()

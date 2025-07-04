@@ -98,7 +98,8 @@ func _input(event) -> void:
 
 func _on_name_text_text_changed(new_text) -> void:
 	player_info.user_name = new_text
-	player_info.save()
+	if len(player_info.user_name) <= 12:
+		player_info.save()
 
 
 func enable_visibility(previous_menu_: String) -> void:

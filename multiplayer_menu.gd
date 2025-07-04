@@ -66,7 +66,7 @@ func add_myself(id: int, tempo_: int) -> void:
 	if player_info.user_name in peer_names:
 		for index in range(0, 33):
 			if player_info.user_name + str(index) not in peer_names:
-				if len(player_info.user_name + str(index)) < $"../avatar/name_text".max_length:
+				if len(player_info.user_name + str(index)) <= $"../avatar/name_text".max_length:
 					$"../avatar/name_text".text = player_info.user_name + str(index)
 				else:
 					if index >= 10:
