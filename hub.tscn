@@ -1,44 +1,30 @@
 [gd_scene load_steps=5 format=3 uid="uid://3ow5m0minlt2"]
 
 [ext_resource type="Script" uid="uid://ccksy768j568l" path="res://hub.gd" id="1_p106a"]
-[ext_resource type="Texture2D" uid="uid://cgdn7qj8ykm6" path="res://avatar_normal.png" id="2_kt6ty"]
 [ext_resource type="Theme" uid="uid://04ex0vg6beua" path="res://theme.tres" id="2_ysrp0"]
 [ext_resource type="PackedScene" uid="uid://dvhwxhu7xcdm" path="res://multiplayer_menu.tscn" id="4_fwqlr"]
+[ext_resource type="PackedScene" uid="uid://cwecqqntqbhyj" path="res://avatar.tscn" id="4_ysrp0"]
 
 [node name="hub" type="Node2D"]
 script = ExtResource("1_p106a")
 
 [node name="host" type="Button" parent="."]
-offset_left = 729.0
+offset_left = 750.0
 offset_top = 162.0
-offset_right = 1129.0
+offset_right = 1150.0
 offset_bottom = 372.0
 theme = ExtResource("2_ysrp0")
 theme_override_font_sizes/font_size = 120
 text = "Host"
 
 [node name="join" type="Button" parent="."]
-offset_left = 729.0
+offset_left = 750.0
 offset_top = 395.0
-offset_right = 1129.0
+offset_right = 1150.0
 offset_bottom = 605.0
 theme = ExtResource("2_ysrp0")
 theme_override_font_sizes/font_size = 120
 text = "Join"
-
-[node name="avatar" type="Sprite2D" parent="."]
-position = Vector2(30, 30)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_kt6ty")
-centered = false
-
-[node name="avatar_label" type="Label" parent="."]
-offset_left = 204.0
-offset_top = 80.0
-offset_right = 324.0
-offset_bottom = 129.0
-theme = ExtResource("2_ysrp0")
-text = "Avatar"
 
 [node name="multiplayer_menu" parent="." instance=ExtResource("4_fwqlr")]
 visible = false
@@ -69,5 +55,17 @@ offset_bottom = 345.0
 theme = ExtResource("2_ysrp0")
 text = "O endereço IP local do hospedeiro:"
 
+[node name="avatar_button" type="Button" parent="."]
+offset_left = 34.0
+offset_top = 40.0
+offset_right = 201.0
+offset_bottom = 109.0
+theme = ExtResource("2_ysrp0")
+text = "Avatar"
+
+[node name="avatar" parent="." instance=ExtResource("4_ysrp0")]
+visible = false
+
 [connection signal="pressed" from="host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="avatar_button" to="." method="_on_avatar_button_pressed"]

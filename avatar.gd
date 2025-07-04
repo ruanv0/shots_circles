@@ -10,7 +10,7 @@ var textos_pt = ["Amarelo", "Azul", "Banana",
 				 "Rosa Claro", "Rosa Escuro", "Roxo",
 				 "Verde", "Vermelho", "Vinho"]
 var colunas_px = []
-var back_pressed = -1
+var previous_menu = ""
 
 
 func select(num_cor: int) -> void:
@@ -94,18 +94,22 @@ func _input(event) -> void:
 					break
 		if linha != -1 and coluna != -1:
 			select(5 * coluna + linha)
-		if event.position.x > 50 and event.position.x < 140 and event.position.y > 40 and event.position.y < 130:
-			call_deferred("add_sibling", load("res://hub.tscn").instantiate())
-			queue_free()
-		elif event.index == back_pressed:
-			$back.texture = load("res://back_button.png")
-			back_pressed = -1
-		elif event is InputEventScreenTouch and event.pressed:
-			if event.position.x > 50 and event.position.x < 140 and event.position.y > 40 and event.position.y < 130:
-				$back.texture = load("res://back_button_pressed.png")
-				back_pressed = event.index
 
 
 func _on_name_text_text_changed(new_text) -> void:
 	player_info.user_name = new_text
 	player_info.save()
+
+
+func enable_visibility(previous_menu_: String) -> void:
+	visible = true
+	previous_menu = previous_menu_
+
+
+func _on_sair_pressed() -> void:
+	visible = false
+	if previous_menu == "hub":
+		$"..".disable_visibility(false)
+	elif previous_menu == "multiplayer":
+		$"../multiplayer_menu".visible = true
+		$"../multiplayer_menu".update_player_data.rpc(player_info.cor, player_info.user_name)

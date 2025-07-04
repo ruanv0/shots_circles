@@ -1,7 +1,6 @@
 extends Node2D
 
 
-var avatar_pressed = -1
 var ip_address: String
 var host = false
 
@@ -15,42 +14,28 @@ func _ready() -> void:
 	$host_ip_address.text = ip_address.split(".")[0] + "." + ip_address.split(".")[1] + "." + ip_address.split(".")[2] + "."
 
 
+func disable_visibility(yes_or_no: bool) -> void:
+	$host.visible = !yes_or_no
+	$join.visible = !yes_or_no
+	$avatar_button.visible = !yes_or_no
+	$host_ip_address.visible = !yes_or_no
+	$your_ip_address.visible = !yes_or_no
+	$host_ip_address_label.visible = !yes_or_no
+
+
 func _on_host_pressed() -> void:
 	$multiplayer_menu.visible = true
 	host = true
 	$multiplayer_menu.host_game(host)
-	$host.visible = false
-	$join.visible = false
-	$avatar.visible = false
-	$avatar_label.visible = false
-	$host_ip_address.visible = false
-	$your_ip_address.visible = false
-	$host_ip_address_label.visible = false
+	disable_visibility(true)
 
 
 func _on_join_pressed() -> void:
 	$multiplayer_menu.visible = true
 	$multiplayer_menu.host_game(false)
-	$host.visible = false
-	$join.visible = false
-	$avatar.visible = false
-	$avatar_label.visible = false
-	$host_ip_address.visible = false
-	$your_ip_address.visible = false
-	$host_ip_address_label.visible = false
+	disable_visibility(true)
 
 
-func _input(event) -> void:
-	if $avatar.visible and event is InputEventScreenTouch and not event.pressed:
-		if event.position.x > 30 and event.position.x < 183.6 + 160 and event.position.y > 0 and event.position.y < 183.6:
-			call_deferred("add_sibling", load("res://avatar.tscn").instantiate())
-			queue_free()
-		elif avatar_pressed == event.index:
-			avatar_pressed = -1
-			$avatar_label.add_theme_color_override("font_color", Color8(255, 255, 255))
-			$avatar.texture = load("res://avatar_normal.png")
-	elif event is InputEventScreenTouch and event.pressed:
-		if $avatar.visible and event.position.x > 30 and event.position.x < 183.6 + 160 and event.position.y > 0 and event.position.y < 183.6:
-			$avatar_label.add_theme_color_override("font_color", Color8(134, 134, 134))
-			$avatar.texture = load("res://avatar_pressed.png")
-			avatar_pressed = event.index
+func _on_avatar_button_pressed() -> void:
+	$avatar.enable_visibility("hub")
+	disable_visibility(true)

@@ -4,6 +4,7 @@ extends Control
 var connected_peer_ids = []
 var peer_colors = []
 var peer_names = []
+var peer_ips = []
 var tempo = 300
 
 
@@ -12,10 +13,10 @@ func host_game(is_host: bool) -> void:
 		var peer = ENetMultiplayerPeer.new()
 		peer.create_server(54822)
 		multiplayer.multiplayer_peer = peer
-		add_player(1, player_info.cor, player_info.user_name)
+		add_player(1, player_info.cor, player_info.user_name, $"..".ip_address)
 		multiplayer.peer_connected.connect(
 			func(new_peer_id):
-				add_previously_connected_players.rpc_id(new_peer_id, connected_peer_ids, peer_colors, peer_names)
+				add_previously_connected_players.rpc_id(new_peer_id, connected_peer_ids, peer_colors, peer_names, peer_ips)
 				add_myself.rpc_id(new_peer_id, new_peer_id, tempo)
 		)
 		multiplayer.peer_disconnected.connect(
@@ -32,28 +33,21 @@ func host_game(is_host: bool) -> void:
 		update_information(tempo)
 
 
-func add_player(id: int, color: int, user_name_: String) -> void:
-	if user_name_ in peer_names:
-		for index in range(0, 33):
-			if user_name_ + str(index) not in peer_names:
-				user_name_ = user_name_ + str(index)
-				break
+func add_player(id: int, color: int, user_name_: String, ip: String) -> void:
 	$names_list.add_item(user_name_)
 	connected_peer_ids.append(id)
 	peer_colors.append(color)
 	peer_names.append(user_name_)
+	peer_ips.append(ip)
 	update_information.rpc(tempo)
 
 
 @rpc("call_local")
 func remove_player(id: int):
-	print("multiplayer.get_unique_id() -> ", multiplayer.get_unique_id())
-	print("id -> ", id, " |  connected_peer_ids.find(id) -> ", connected_peer_ids.find(id))
 	peer_colors.pop_at(connected_peer_ids.find(id))
-	print("1. len(peer_names) -> ", len(peer_names))
 	peer_names.pop_at(connected_peer_ids.find(id))
-	print("2. len(peer_names) -> ", len(peer_names))
 	$names_list.remove_item(connected_peer_ids.find(id))
+	peer_ips.pop_at(connected_peer_ids.find(id))
 	connected_peer_ids.erase(id)
 	update_information.rpc(tempo)
 
@@ -65,21 +59,34 @@ func players_positions() -> Array:
 			players_positions_.append(child.global_position)
 	return players_positions_
 
+
 @rpc
 func add_myself(id: int, tempo_: int) -> void:
 	tempo = tempo_
-	add_newly_connected_player.rpc(id, player_info.cor, player_info.user_name)
+	if player_info.user_name in peer_names:
+		for index in range(0, 33):
+			if player_info.user_name + str(index) not in peer_names:
+				if len(player_info.user_name + str(index)) < $"../avatar/name_text".max_length:
+					$"../avatar/name_text".text = player_info.user_name + str(index)
+				else:
+					if index >= 10:
+						$"../avatar/name_text".max_length += 2
+					elif index < 10:
+						$"../avatar/name_text".max_length += 1
+					$"../avatar/name_text".text = player_info.user_name + str(index)
+				break
+	add_newly_connected_player.rpc(id, player_info.cor, $"../avatar/name_text".text, $"..".ip_address)
 
 
 @rpc("call_local", "any_peer")
-func add_newly_connected_player(id: int, color: int, user_name_) -> void:
-	add_player(id, color, user_name_)
+func add_newly_connected_player(id: int, color: int, user_name_, ip: String) -> void:
+	add_player(id, color, user_name_, ip)
 
 
 @rpc
-func add_previously_connected_players(peer_ids_: Array, colors: Array, names_: Array) -> void:
+func add_previously_connected_players(peer_ids_: Array, colors: Array, names_: Array, ips: Array) -> void:
 	for index in range(0, len(peer_ids_)):
-		add_player(peer_ids_[index], colors[index], names_[index])
+		add_player(peer_ids_[index], colors[index], names_[index], ips[index])
 
 
 func _process(_delta) -> void:
@@ -150,6 +157,13 @@ func _on_cancelar_pressed() -> void:
 	$cancelar.visible = false
 
 
+@rpc("call_local", "any_peer")
+func update_player_data(color: int, user_name_: String) -> void:
+	$names_list.set_item_text(connected_peer_ids.find(multiplayer.get_remote_sender_id()), user_name_)
+	peer_colors[connected_peer_ids.find(multiplayer.get_remote_sender_id())] = color
+	peer_names[connected_peer_ids.find(multiplayer.get_remote_sender_id())] = user_name_
+
+
 # É importante uma chamada local para que ao clicar
 # o botão 'Iniciar' todos os jogadores estejam atualizados
 @rpc("call_local", "any_peer")
@@ -187,10 +201,9 @@ func _on_sair_pressed() -> void:
 	$names_list.clear()
 	tempo = 300
 	visible = false
-	$"../host".visible = true
-	$"../join".visible = true
-	$"../avatar".visible = true
-	$"../avatar_label".visible = true
-	$"../host_ip_address".visible = true
-	$"../your_ip_address".visible = true
-	$"../host_ip_address_label".visible = true
+	$"..".disable_visibility(false)
+
+
+func _on_avatar_button_pressed() -> void:
+	$"../avatar".enable_visibility("multiplayer")
+	visible = false

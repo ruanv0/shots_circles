@@ -126,9 +126,19 @@ theme = ExtResource("2_326qw")
 text = "Sair"
 expand_icon = true
 
+[node name="avatar_button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 103.0
+offset_right = 1271.0
+offset_bottom = 172.0
+theme = ExtResource("2_326qw")
+text = "Avatar"
+
 [connection signal="pressed" from="iniciar" to="." method="_on_iniciar_pressed"]
 [connection signal="pressed" from="cancelar" to="." method="_on_cancelar_pressed"]
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]
 [connection signal="text_changed" from="tempo_host/minutes_edit" to="." method="_on_minutes_edit_text_changed"]
 [connection signal="text_changed" from="tempo_host/seconds_edit" to="." method="_on_seconds_edit_text_changed"]
 [connection signal="pressed" from="sair" to="." method="_on_sair_pressed"]
+[connection signal="pressed" from="avatar_button" to="." method="_on_avatar_button_pressed"]
