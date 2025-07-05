@@ -9,13 +9,13 @@ var go_to = Vector2(0, 0)
 
 
 func _ready() -> void:
-	if is_multiplayer_authority():
+	if player_info.my_multiplayer_id == int($"..".name.replace("player", "")):
 		old_position = global_position
 		radius *= scale.x # scale.x e scale.y devem ser iguais
 
 
 func _input(event) -> void:
-	if is_multiplayer_authority():
+	if player_info.my_multiplayer_id == int($"..".name.replace("player", "")):
 		if event is InputEventScreenTouch:
 			var distance = event.position.distance_to(old_position)
 			if event.pressed:

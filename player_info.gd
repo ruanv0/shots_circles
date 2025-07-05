@@ -5,6 +5,7 @@ var cor
 var language
 var user_name
 var save_path = "user://save.json"
+var my_multiplayer_id = -1
 
 
 func save() -> void:

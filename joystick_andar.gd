@@ -14,7 +14,7 @@ func _ready() -> void:
 
 
 func _input(event) -> void:
-	if event is InputEventScreenTouch:
+	if player_info.my_multiplayer_id == int($"..".name.replace("player", "")) and event is InputEventScreenTouch:
 		var distance = event.position.distance_to(old_position)
 		if event.pressed:
 			if distance <= radius && distance >= radius * -1:

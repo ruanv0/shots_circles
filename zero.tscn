@@ -25,9 +25,6 @@ var spawnpoints_used = [false, false, false, false,
 						false, false, false, false]
 var host
 @export var player_scene: PackedScene
-var connected_peer_ids
-var peer_colors
-var peer_names
 var kills = []
 
 
@@ -48,14 +45,11 @@ func spawn_point() -> Vector2:
 
 func _ready() -> void:
 	host = $\"..\".host
-	$\"../multiplayer_menu\".visible = 0
-	connected_peer_ids = $\"../multiplayer_menu\".connected_peer_ids
-	peer_colors = $\"../multiplayer_menu\".peer_colors
-	peer_names = $\"../multiplayer_menu\".peer_names
+	$\"../multiplayer_menu\".visible = false
 	if host:
-		for index in range(0, len(connected_peer_ids)):
-			add_player.rpc(connected_peer_ids[index], spawn_point(),
-						   peer_colors[index], peer_names[index])
+		for index in range(0, $\"../multiplayer_menu\".are_peers_connected.count(true)):
+			add_player.rpc($\"../multiplayer_menu\".peer_ids[index], spawn_point(),
+						   $\"../multiplayer_menu\".peer_colors[index], $\"../multiplayer_menu\".peer_names[index])
 
 
 @rpc(\"call_local\")
@@ -78,13 +72,12 @@ func players_positions() -> Array:
 
 
 func sort_kills() -> void:
-	for i in range(len(kills)):
-		for j in range(0, len(kills)-i-1):
-			if kills[j][1] < kills[j+1][1]:
-				var a = kills[j]
-				kills[j] = kills[j+1]
-				kills[j+1] = a
-	#print(kills)
+	for index_0 in range(0, len(kills)):
+		for index_1 in range(0, len(kills)-index_0-1):
+			if kills[index_1][1] < kills[index_1+1][1]:
+				var a = kills[index_1]
+				kills[index_1] = kills[index_1+1]
+				kills[index_1+1] = a
 
 
 func _on_timer_0_timeout() -> void:

@@ -6,39 +6,45 @@ var balas_usadas = [false, false, false]
 var last_attack = ""
 
 
-func preparar(cor, user_name) -> void:
+func preparar() -> void:
 	var cores_pt = ["amarelo", "azul", "banana",
 					"branco", "caqui", "ciano",
 					"cinza", "coral", "laranja",
 					"limao", "marrom", "preto",
 					"rosa_claro", "rosa_escuro", "roxo",
 					"verde", "vermelho", "vinho"]
-	$circulo.texture = load("res://circulos/circulo_" + cores_pt[cor] + ".png")
-	$name.text = user_name
-	if cor in [0, 2, 3, 4, 5, 7, 9, 12]:
+	$circulo.texture = load("res://circulos/circulo_" + cores_pt[get_meta("cor")] + ".png")
+	$name.text = get_meta("user_name")
+	if get_meta("cor") in [0, 2, 3, 4, 5, 7, 9, 12]:
 	# Circulos claros com textos escuros
 	# O texto é branco por padrão
 		$name.add_theme_color_override("font_color", Color8(0, 0, 0))
-	if len(user_name) > 7:
-		$name.add_theme_font_size_override("font_size", 50 / float(len(user_name)) * 7)
+	if len(get_meta("user_name")) > 7:
+		$name.add_theme_font_size_override("font_size", 50 / float(len(get_meta("user_name"))) * 7)
 		await($name.minimum_size_changed)
 	$name.reset_size()
 	$name.position.x = 640 - $name.size.x / 2
-	$camera.visible = is_multiplayer_authority()
-	$joystick_andar.visible = is_multiplayer_authority()
-	$joystick_atirar.visible = is_multiplayer_authority()
-	$tempo.visible = is_multiplayer_authority()
-	$mapa.visible = is_multiplayer_authority()
+	if player_info.my_multiplayer_id == int(name.replace("player", "")):
+		$camera.visible = true
+		$joystick_andar.visible = true
+		$joystick_atirar.visible = true
+		$tempo.visible = true
+		$mapa.visible = true
+	else:
+		$camera.visible = false
+		$joystick_andar.visible = false
+		$joystick_atirar.visible = false
+		$tempo.visible = false
+		$mapa.visible = false
 
 
 func _enter_tree() -> void:
-	var authority_name = str(name).replace("player", "")
-	set_multiplayer_authority(authority_name.to_int())
+	set_multiplayer_authority(int(name.replace("player", "")))
 
 
 func _ready() -> void:
-	preparar(get_meta("cor"), get_meta("user_name"))
-	if is_multiplayer_authority():
+	preparar()
+	if player_info.my_multiplayer_id == int(name.replace("player", "")):
 		$camera.make_current()
 
 
@@ -84,7 +90,7 @@ func andar(delta) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta) -> void:
-	if is_multiplayer_authority():
+	if player_info.my_multiplayer_id == int(name.replace("player", "")):
 		var tempo = floori($"../game_timer".time_left)
 		if $tempo.text != str(tempo):
 			if floori(tempo / 60.0) >= 10:
@@ -129,14 +135,14 @@ func hurt(attacker_name: String) -> void:
 	$saude.value -= 1
 	$timer1.start()
 	if $saude.value == 0:
-		if is_multiplayer_authority():
+		if player_info.my_multiplayer_id == int(name.replace("player", "")):
 			count_kill.rpc(last_attack)
 			$players_list.clear()
 			$kills_list.clear()
 			$"../".sort_kills()
-			for i in $"../".kills:
-				$players_list.add_item(i[0])
-				$kills_list.add_item(str(i[1]))
+			for item in $"../".kills:
+				$players_list.add_item(item[0])
+				$kills_list.add_item(str(item[1]))
 			$players_list.visible = true
 			$kills_list.visible = true
 			$fundo.visible = true
@@ -161,17 +167,21 @@ func count_kill(last_attack_: String) -> void:
 			break
 
 
+func disable_player() -> void:
+	visible = false
+
+
 func terminar() -> void:
 	$collision_shape.set_deferred("disabled", 1)
-	if is_multiplayer_authority():
+	if player_info.my_multiplayer_id == int(name.replace("player", "")):
 		$players_list.visible = true
 		$kills_list.visible = true
 		$players_list.clear()
 		$kills_list.clear()
 		$"..".sort_kills()
-		for i in $"..".kills:
-			$players_list.add_item(i[0])
-			$kills_list.add_item(str(i[1]))
+		for item in $"..".kills:
+			$players_list.add_item(item[0])
+			$kills_list.add_item(str(item[1]))
 		$fundo.visible = true
 		$camera.zoom = Vector2(0.5, 0.5)
 		$joystick_atirar.visible = false
@@ -181,7 +191,6 @@ func terminar() -> void:
 		$terminando/finish_timer.start()
 		$tempo.visible = false
 		$mapa.visible = false
-		$Button.visible = false
 
 
 func _on_timer_0_timeout() -> void:
