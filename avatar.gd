@@ -11,6 +11,7 @@ var textos_pt = ["Amarelo", "Azul", "Banana",
 				 "Verde", "Vermelho", "Vinho"]
 var colunas_px = []
 var previous_menu = ""
+var old_name = ""
 
 
 func select(num_cor: int) -> void:
@@ -96,15 +97,20 @@ func _input(event) -> void:
 			select(5 * coluna + linha)
 
 
-func _on_name_text_text_changed(new_text) -> void:
-	player_info.user_name = new_text
+func verify_and_save_user_name(user_name: String) -> void:
+	player_info.user_name = user_name
 	if len(player_info.user_name) <= 12:
 		player_info.save()
+
+
+func _on_name_text_text_changed(new_text) -> void:
+	verify_and_save_user_name(new_text)
 
 
 func enable_visibility(previous_menu_: String) -> void:
 	visible = true
 	previous_menu = previous_menu_
+	old_name = $name_text.text
 
 
 func _on_sair_pressed() -> void:
@@ -113,4 +119,20 @@ func _on_sair_pressed() -> void:
 		$"..".disable_visibility(false)
 	elif previous_menu == "multiplayer":
 		$"../multiplayer_menu".visible = true
-		$"../multiplayer_menu".update_player_data.rpc(player_info.cor, player_info.user_name)
+		if old_name != $name_text.text:
+			for index_0 in range(0, len($"../multiplayer_menu".peer_ids)):
+				if $"../multiplayer_menu".peer_names[index_0] == $name_text.text and $"../multiplayer_menu".peer_ids[index_0] != player_info.my_multiplayer_id:
+					for index_1 in range(0, 33):
+						if $name_text.text + str(index_1) not in $"../multiplayer_menu".peer_names:
+							if len($name_text.text + str(index_1)) <= $name_text.max_length:
+								$name_text.text = $name_text.text + str(index_1)
+							else:
+								if index_1 >= 10:
+									$name_text.max_length += 2
+								elif index_1 < 10:
+									$name_text.max_length += 1
+								$name_text.text = $name_text.text + str(index_1)
+							break
+					break
+			verify_and_save_user_name($name_text.text)
+			$"../multiplayer_menu".update_player_data.rpc(player_info.cor, $name_text.text)
