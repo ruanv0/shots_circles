@@ -8,6 +8,7 @@ var peer_ips = []
 var are_peers_connected = []
 var tempo = 300
 var am_I_added = false
+var partida_acontecendo = false
 
 
 func host_game(is_host: bool) -> void:
@@ -37,6 +38,7 @@ func host_game(is_host: bool) -> void:
 
 
 func add_player(id: int, color: int, user_name_: String, ip: String, connected: bool) -> void:
+	print("add_player - id -> ", id)
 	peer_ids.append(id)
 	peer_colors.append(color)
 	peer_names.append(user_name_)
@@ -44,6 +46,13 @@ func add_player(id: int, color: int, user_name_: String, ip: String, connected: 
 	are_peers_connected.append(connected)
 	$names_list.add_item(user_name_)
 	update_information(tempo)
+	if partida_acontecendo == true and multiplayer.get_unique_id() == 1:
+		update_time.rpc_id(peer_ids[-1], tempo)
+		carregar.rpc_id(peer_ids[-1])
+		for index in range(0, len(peer_ids)):
+			if are_peers_connected[index] == true and peer_ids[index] != peer_ids[-1]:
+				$"../zero".add_player.rpc_id(peer_ids[-1], peer_ids[index], get_node("../zero/player" + str(peer_ids[index])).global_position, peer_colors[index], peer_names[index])
+		$"../zero".add_player.rpc(peer_ids[-1], $"../zero".spawn_point(), peer_colors[-1], peer_names[-1])
 
 
 @rpc("call_local")
@@ -232,6 +241,7 @@ func update_information(time: int) -> void:
 
 func _on_timer_timeout() -> void:
 	carregar()
+	partida_acontecendo = true
 
 
 func _on_minutes_edit_text_changed(new_text: String) -> void:

@@ -23,7 +23,6 @@ var spawnpoints_used = [false, false, false, false,
 						false, false, false, false,
 						false, false, false, false,
 						false, false, false, false]
-var host
 @export var player_scene: PackedScene
 var kills = []
 
@@ -44,22 +43,25 @@ func spawn_point() -> Vector2:
 
 
 func _ready() -> void:
-	host = $\"..\".host
 	$\"../multiplayer_menu\".visible = false
-	if host:
-		for index in range(0, $\"../multiplayer_menu\".are_peers_connected.count(true)):
-			add_player.rpc($\"../multiplayer_menu\".peer_ids[index], spawn_point(),
-						   $\"../multiplayer_menu\".peer_colors[index], $\"../multiplayer_menu\".peer_names[index])
+	if $\"..\".host:
+		for index in range(0, len($\"../multiplayer_menu\".peer_ids)):
+			if $\"../multiplayer_menu\".are_peers_connected[index] == true:
+				add_player.rpc($\"../multiplayer_menu\".peer_ids[index], spawn_point(),
+							   $\"../multiplayer_menu\".peer_colors[index], $\"../multiplayer_menu\".peer_names[index])
 
 
 @rpc(\"call_local\")
 func add_player(id: int, position_: Vector2, color: int, user_name_: String) -> void:
+	print(\"id -> \", id)
 	var player = player_scene.instantiate()
 	player.name = \"player\" + str(id)
+	print(player.name)
 	player.set_meta(\"cor\", color)
 	player.set_meta(\"user_name\", user_name_)
 	kills.append([user_name_, 0, \"player\" + str(id)])
 	add_child(player)
+	print(get_children())
 	get_node(\"player\" + str(id)).global_position = position_
 
 
@@ -216,6 +218,7 @@ func finish_game() -> void:
 
 
 func _on_game_timer_timeout() -> void:
+	$\"../multiplayer_menu\".partida_acontecendo = false
 	finish_game.rpc()
 "
 
