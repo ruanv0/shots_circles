@@ -7,6 +7,7 @@ var peer_names = []
 var peer_ips = []
 var are_peers_connected = []
 var tempo = 300
+var am_I_added = false
 
 
 func host_game(is_host: bool) -> void:
@@ -47,14 +48,11 @@ func add_player(id: int, color: int, user_name_: String, ip: String, connected: 
 
 @rpc("call_local")
 func remove_player(id: int):
-	var name_index_list = -1
-	for index in range(0, len(are_peers_connected)):
-		if are_peers_connected[index] == true:
-			name_index_list += 1
-		if peer_ids.find(id) == index:
-			break
 	are_peers_connected[peer_ids.find(id)] = false
-	$names_list.remove_item(name_index_list)
+	$names_list.clear()
+	for index in range(0, len(peer_ids)):
+		if are_peers_connected[index] == true:
+			$names_list.add_item(peer_names[index])
 	update_information(tempo)
 
 
@@ -69,7 +67,7 @@ func players_positions() -> Array:
 @rpc
 func add_myself(id: int, tempo_: int) -> void:
 	tempo = tempo_
-	if player_info.my_multiplayer_id == -1:
+	if am_I_added == false:
 		if player_info.user_name in peer_names:
 			for index in range(0, 33):
 				if player_info.user_name + str(index) not in peer_names:
@@ -84,6 +82,7 @@ func add_myself(id: int, tempo_: int) -> void:
 					break
 		player_info.my_multiplayer_id = id
 		add_newly_connected_player.rpc(id, player_info.cor, $"../avatar/name_text".text, $"..".ip_address)
+		am_I_added = true
 
 
 @rpc("call_local", "any_peer")
@@ -97,14 +96,9 @@ func readd_disconnected_player(id: int, color: int, user_name_: String) -> void:
 	peer_colors[peer_ids.find(id)] = color
 	peer_names[peer_ids.find(id)] = user_name_
 	$names_list.add_item(user_name_)
-	var name_index_list = -1
-	for index in range(0, len(are_peers_connected)):
-		if are_peers_connected[index] == true:
-			name_index_list += 1
-		if peer_ids.find(id) == index:
-			break
-	$names_list.move_item(are_peers_connected.count(true) - 1, name_index_list)
+	$names_list.sort_items_by_text()
 	update_information(tempo)
+	am_I_added = true
 
 
 @rpc
@@ -134,6 +128,7 @@ func add_previously_connected_players(peer_ids_: Array, peer_colors_: Array, pee
 		else:
 			if are_peers_connected[index_0] == true:
 				$names_list.add_item(peer_names[index_0])
+	$names_list.sort_items_by_text()
 
 
 func _process(_delta) -> void:
@@ -164,7 +159,6 @@ func cancelar() -> void:
 	$timer.stop()
 
 
-@rpc("call_local", "any_peer")
 func time_text() -> void:
 	var minutes = $tempo_host/minutes_edit.text
 	var seconds = $tempo_host/seconds_edit.text
@@ -193,9 +187,13 @@ func time_text() -> void:
 
 @rpc("call_local", "any_peer")
 func update_player_data(color: int, user_name_: String) -> void:
-	$names_list.set_item_text(peer_ids.find(multiplayer.get_remote_sender_id()), user_name_)
 	peer_colors[peer_ids.find(multiplayer.get_remote_sender_id())] = color
 	peer_names[peer_ids.find(multiplayer.get_remote_sender_id())] = user_name_
+	$names_list.clear()
+	for index in range(0, len(peer_ids)):
+		if are_peers_connected[index] == true:
+			$names_list.add_item(peer_names[index])
+	$names_list.sort_items_by_text()
 
 
 @rpc("call_local", "any_peer")
