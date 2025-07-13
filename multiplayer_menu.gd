@@ -29,6 +29,7 @@ func host_game(is_host: bool) -> void:
 		)
 		$iniciar.visible = true
 		$tempo_host.visible = true
+		$configurações_button.visible = true
 		update_information(tempo)
 	elif not is_host:
 		var peer = ENetMultiplayerPeer.new()
@@ -252,6 +253,23 @@ func _on_seconds_edit_text_changed(new_text: String) -> void:
 
 
 func _on_sair_pressed() -> void:
+	$fundo_escuro.visible = true
+	$fundo_caixa.visible = true
+
+
+func _on_avatar_button_pressed() -> void:
+	$"../avatar".enable_visibility("multiplayer")
+	visible = false
+
+
+func _on_nao_pressed() -> void:
+	$fundo_escuro.visible = false
+	$fundo_caixa.visible = false
+
+
+func _on_sim_pressed() -> void:
+	$fundo_escuro.visible = false
+	$fundo_caixa.visible = false
 	multiplayer.multiplayer_peer = null
 	peer_ids = []
 	peer_colors = []
@@ -263,6 +281,5 @@ func _on_sair_pressed() -> void:
 	$"..".disable_visibility(false)
 
 
-func _on_avatar_button_pressed() -> void:
-	$"../avatar".enable_visibility("multiplayer")
-	visible = false
+func _on_configurações_button_pressed() -> void:
+	pass # Replace with function body.
