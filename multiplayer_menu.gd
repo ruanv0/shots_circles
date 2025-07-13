@@ -38,7 +38,6 @@ func host_game(is_host: bool) -> void:
 
 
 func add_player(id: int, color: int, user_name_: String, ip: String, connected: bool) -> void:
-	print("add_player - id -> ", id)
 	peer_ids.append(id)
 	peer_colors.append(color)
 	peer_names.append(user_name_)

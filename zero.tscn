@@ -53,15 +53,12 @@ func _ready() -> void:
 
 @rpc(\"call_local\")
 func add_player(id: int, position_: Vector2, color: int, user_name_: String) -> void:
-	print(\"id -> \", id)
 	var player = player_scene.instantiate()
 	player.name = \"player\" + str(id)
-	print(player.name)
 	player.set_meta(\"cor\", color)
 	player.set_meta(\"user_name\", user_name_)
 	kills.append([user_name_, 0, \"player\" + str(id)])
 	add_child(player)
-	print(get_children())
 	get_node(\"player\" + str(id)).global_position = position_
 
 

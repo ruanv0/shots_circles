@@ -11,20 +11,14 @@ corner_radius_bottom_left = 100
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlpum"]
 bg_color = Color(0.230315, 0.230315, 0.230315, 1)
-border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_va5qo"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysrp0"]
 bg_color = Color(0, 0, 0, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
@@ -33,7 +27,6 @@ anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0w8qk"]
 bg_color = Color(0.231373, 0.231373, 0.231373, 1)
-border_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
@@ -51,7 +44,7 @@ Button/font_sizes/font_size = 40
 Button/fonts/font = ExtResource("1_e1x85")
 Button/styles/focus = SubResource("StyleBoxFlat_pudd0")
 Button/styles/hover = SubResource("StyleBoxFlat_jlpum")
-Button/styles/normal = SubResource("StyleBoxFlat_va5qo")
+Button/styles/normal = SubResource("StyleBoxFlat_ysrp0")
 Button/styles/pressed = SubResource("StyleBoxFlat_0w8qk")
 ItemList/font_sizes/font_size = 40
 ItemList/fonts/font = ExtResource("1_e1x85")
